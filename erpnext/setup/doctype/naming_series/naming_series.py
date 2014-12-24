@@ -48,10 +48,11 @@ class NamingSeries(Document):
 		# validate names
 		for i in options: self.validate_series_name(i)
 
-		if options and self.user_must_always_select:
+		if self.user_must_always_select:
 			options = [''] + options
-
-		default = options[0] if options else ''
+			default = ''
+		else:
+			default = options[0]
 
 		# update in property setter
 		prop_dict = {'options': "\n".join(options), 'default': default}

@@ -195,3 +195,17 @@ cur_frm.cscript.send_sms = function() {
 	frappe.require("assets/erpnext/js/sms_manager.js");
 	var sms_man = new SMSManager(cur_frm.doc);
 }
+
+cur_frm.cscript.for_branch = function(doc, cdt, cdn){
+	var d = locals[cdt][cdn]
+	get_server_fields('get_for_warehouse',d.for_branch,'', doc, cdt, cdn, 1, function(){
+		refresh_field('indent_details')
+	})
+}
+
+cur_frm.cscript.from_branch = function(doc, cdt, cdn){
+	var d = locals[cdt][cdn]
+	get_server_fields('get_for_warehouse',d.from_branch,'', doc, cdt, cdn, 1, function(r){
+		refresh_field('indent_details')
+	})
+}

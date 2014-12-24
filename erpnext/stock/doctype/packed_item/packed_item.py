@@ -27,7 +27,7 @@ def get_bin_qty(item, warehouse):
 		where item_code = %s and warehouse = %s""", (item, warehouse), as_dict = 1)
 	return det and det[0] or ''
 
-def update_packing_list_item(obj, packing_item_code, qty, warehouse, line):
+def update_packing_list_item(obj, packing_item_code, qty, warehouse, line, packing_list_idx):
 	bin = get_bin_qty(packing_item_code, warehouse)
 	item = get_packing_item_details(packing_item_code)
 
@@ -54,7 +54,9 @@ def update_packing_list_item(obj, packing_item_code, qty, warehouse, line):
 		pi.warehouse = warehouse
 	if not pi.batch_no:
 		pi.batch_no = cstr(line.get("batch_no"))
+	pi.idx = packing_list_idx
 
+	packing_list_idx += 1
 
 
 def make_packing_list(obj, item_table_fieldname):
@@ -62,11 +64,13 @@ def make_packing_list(obj, item_table_fieldname):
 
 	if obj.get("_action") and obj._action == "update_after_submit": return
 
+	packing_list_idx = 0
 	parent_items = []
 	for d in obj.get(item_table_fieldname):
 		if frappe.db.get_value("Sales BOM", {"new_item_code": d.item_code}):
 			for i in get_sales_bom_items(d.item_code):
-				update_packing_list_item(obj, i['item_code'], flt(i['qty'])*flt(d.qty), d.warehouse, d)
+				update_packing_list_item(obj, i['item_code'], flt(i['qty'])*flt(d.qty),
+					d.warehouse, d, packing_list_idx)
 
 			if [d.item_code, d.name] not in parent_items:
 				parent_items.append([d.item_code, d.name])

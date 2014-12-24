@@ -30,8 +30,7 @@ def execute(filters=None):
 	data = []
 	for gle in entries:
 		if cstr(gle.against_voucher) == gle.voucher_no or not gle.against_voucher \
-				or [gle.against_voucher_type, gle.against_voucher] in entries_after_report_date \
-				or (gle.against_voucher_type == "Purchase Order"):
+				or [gle.against_voucher_type, gle.against_voucher] in entries_after_report_date:
 			voucher_details = voucher_detail_map.get(gle.voucher_type, {}).get(gle.voucher_no, {})
 			
 			invoiced_amount = gle.credit > 0 and gle.credit or 0
@@ -68,12 +67,12 @@ def execute(filters=None):
 	
 def get_columns(supplier_naming_by):
 	columns = [
-		_("Posting Date") + ":Date:80", _("Account") + ":Link/Account:150", _("Voucher Type") + "::110", 
-		_("Voucher No") + "::120", "::30", _("Due Date") + ":Date:80", _("Bill No") + "::80", _("Bill Date") + ":Date:80", 
-		_("Invoiced Amount") + ":Currency:100", _("Paid Amount") + ":Currency:100", 
-		_("Outstanding Amount") + ":Currency:100", _("Age") + ":Int:50", "0-30:Currency:100", 
-		"30-60:Currency:100", "60-90:Currency:100", _("90-Above") + ":Currency:100",
-		_("Supplier") + ":Link/Supplier:150"
+		"Posting Date:Date:80", "Account:Link/Account:150", "Voucher Type::110", 
+		"Voucher No::120", "::30", "Due Date:Date:80", "Bill No::80", "Bill Date:Date:80", 
+		"Invoiced Amount:Currency:100", "Paid Amount:Currency:100", 
+		"Outstanding Amount:Currency:100", "Age:Int:50", "0-30:Currency:100", 
+		"30-60:Currency:100", "60-90:Currency:100", "90-Above:Currency:100",
+		"Supplier:Link/Supplier:150"
 	]
 
 	if supplier_naming_by == "Naming Series":

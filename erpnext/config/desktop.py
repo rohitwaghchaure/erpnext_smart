@@ -63,5 +63,18 @@ def get_data():
 			"color": "#2c3e50",
 			"icon": "icon-phone",
 			"type": "module"
+		},
+		"Dashboard":{
+			"color": "#e67e22",
+			"icon": "icon-play",
+			"label": _("Dashboard"),
+			"link": "Form/Work Management",
+			"type": "view"
+		},
+		"Admin Module":{
+			"color": "#e67e22",
+			"icon": "icon-play",
+			"label": _("Admin Module"),
+			"type": "module"
 		}
 	}

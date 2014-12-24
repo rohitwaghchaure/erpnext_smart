@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _, msgprint
 from frappe.utils import flt, rounded
-
 from erpnext.setup.utils import get_company_currency
 from erpnext.accounts.party import get_party_details
 
@@ -110,13 +109,13 @@ class BuyingController(StockController):
 		self.round_floats_in(self, ["net_total", "net_total_import"])
 
 	def calculate_totals(self):
-		self.grand_total = flt(self.tax_doclist[-1].total if self.tax_doclist else self.net_total)
-		self.grand_total_import = flt(self.grand_total / self.conversion_rate)
+		self.grand_total = flt(self.tax_doclist[-1].total if self.tax_doclist
+			else self.net_total, self.precision("grand_total"))
+		self.grand_total_import = flt(self.grand_total / self.conversion_rate,
+			self.precision("grand_total_import"))
 
-		self.total_tax = flt(self.grand_total - self.net_total, self.precision("total_tax"))
-
-		self.grand_total = flt(self.grand_total, self.precision("grand_total"))
-		self.grand_total_import = flt(self.grand_total_import, self.precision("grand_total_import"))
+		self.total_tax = flt(self.grand_total - self.net_total,
+			self.precision("total_tax"))
 
 		if self.meta.get_field("rounded_total"):
 			self.rounded_total = rounded(self.grand_total)
@@ -256,6 +255,8 @@ class BuyingController(StockController):
 			rm.required_qty = required_qty
 
 			rm.conversion_factor = item.conversion_factor
+			rm.rate = bom_item.rate
+			rm.amount = required_qty * flt(bom_item.rate)
 			rm.idx = rm_supplied_idx
 
 			if self.doctype == "Purchase Receipt":
@@ -266,25 +267,7 @@ class BuyingController(StockController):
 
 			rm_supplied_idx += 1
 
-			# get raw materials rate
-			if self.doctype == "Purchase Receipt":
-				from erpnext.stock.utils import get_incoming_rate
-				rm.rate = get_incoming_rate({
-					"item_code": bom_item.item_code,
-					"warehouse": self.supplier_warehouse,
-					"posting_date": self.posting_date,
-					"posting_time": self.posting_time,
-					"qty": -1 * required_qty,
-					"serial_no": rm.serial_no
-				})
-				if not rm.rate:
-					from erpnext.stock.stock_ledger import get_valuation_rate
-					rm.rate = get_valuation_rate(bom_item.item_code, self.supplier_warehouse)
-			else:
-				rm.rate = bom_item.rate
-
-			rm.amount = required_qty * flt(rm.rate)
-			raw_materials_cost += flt(rm.amount)
+			raw_materials_cost += required_qty * flt(bom_item.rate)
 
 		if self.doctype == "Purchase Receipt":
 			item.rm_supp_cost = raw_materials_cost

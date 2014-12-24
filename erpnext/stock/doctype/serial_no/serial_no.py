@@ -223,8 +223,8 @@ def validate_serial_no(sle, item_det):
 					sr = frappe.get_doc("Serial No", serial_no)
 
 					if sr.item_code!=sle.item_code:
-						frappe.throw(_("Serial No {0} does not belong to Item {1}").format(serial_no,
-							sle.item_code), SerialNoItemError)
+						frappe.throw(_("Serial No {0} does not belong to Item {1}").format(sle.item_code,
+							serial_no), SerialNoItemError)
 
 					if sr.warehouse and sle.actual_qty > 0:
 						frappe.throw(_("Serial No {0} has already been received").format(sr.name),
@@ -253,9 +253,8 @@ def update_serial_nos(sle, item_det):
 		from frappe.model.naming import make_autoname
 		serial_nos = []
 		for i in xrange(cint(sle.actual_qty)):
-			serial_nos.append(make_autoname(item_det.serial_no_series, "Serial No"))
+			serial_nos.append(make_autoname(item_det.serial_no_series))
 		frappe.db.set(sle, "serial_no", "\n".join(serial_nos))
-		validate_serial_no(sle, item_det)
 
 	if sle.serial_no:
 		serial_nos = get_serial_nos(sle.serial_no)

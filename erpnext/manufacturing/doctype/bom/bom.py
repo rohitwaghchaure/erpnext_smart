@@ -115,9 +115,6 @@ class BOM(Document):
 		return rate
 
 	def update_cost(self):
-		if self.docstatus == 2:
-			return
-
 		for d in self.get("bom_materials"):
 			d.rate = self.get_bom_material_detail({
 				'item_code': d.item_code,
@@ -125,13 +122,12 @@ class BOM(Document):
 				'qty': d.qty
 			})["rate"]
 
-		if self.docstatus == 1:
+		if self.docstatus in (0, 1):
 			self.ignore_validate_update_after_submit = True
-			self.calculate_cost()
-		self.save()
+			self.save()
 
 	def get_bom_unitcost(self, bom_no):
-		bom = frappe.db.sql("""select name, total_variable_cost/quantity as unit_cost from `tabBOM`
+		bom = frappe.db.sql("""select name, total_cost/quantity as unit_cost from `tabBOM`
 			where is_active = 1 and name = %s""", bom_no, as_dict=1)
 		return bom and bom[0]['unit_cost'] or 0
 
@@ -273,29 +269,18 @@ class BOM(Document):
 		"""Calculate bom totals"""
 		self.calculate_op_cost()
 		self.calculate_rm_cost()
-		self.total_variable_cost = self.raw_material_cost + self.operating_cost
-		self.total_cost = self.total_variable_cost + self.total_fixed_cost
+		self.total_cost = self.raw_material_cost + self.operating_cost
 
 	def calculate_op_cost(self):
 		"""Update workstation rate and calculates totals"""
-		total_op_cost, fixed_cost = 0, 0
+		total_op_cost = 0
 		for d in self.get('bom_operations'):
-			if d.workstation:
-				w = frappe.db.get_value("Workstation", d.workstation, ["hour_rate", "fixed_cycle_cost"])
-				if not d.hour_rate:
-					d.hour_rate = flt(w[0])
-
-				if d.fixed_cycle_cost == None:
-					d.fixed_cycle_cost= flt(w[1])
-
-				fixed_cost += d.fixed_cycle_cost
-
+			if d.workstation and not d.hour_rate:
+				d.hour_rate = frappe.db.get_value("Workstation", d.workstation, "hour_rate")
 			if d.hour_rate and d.time_in_mins:
 				d.operating_cost = flt(d.hour_rate) * flt(d.time_in_mins) / 60.0
 			total_op_cost += flt(d.operating_cost)
-
 		self.operating_cost = total_op_cost
-		self.total_fixed_cost = fixed_cost
 
 	def calculate_rm_cost(self):
 		"""Fetch RM rate as per today's valuation rate and calculate totals"""

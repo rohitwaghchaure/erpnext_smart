@@ -57,7 +57,6 @@ class Opportunity(TransactionBase):
 			opts = frappe._dict()
 
 		opts.description = ""
-		opts.contact_date = self.contact_date
 
 		if self.customer:
 			if self.contact_person:

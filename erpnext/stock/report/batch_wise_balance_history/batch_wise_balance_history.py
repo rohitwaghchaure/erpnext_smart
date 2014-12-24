@@ -4,7 +4,7 @@
 from __future__ import unicode_literals
 import frappe
 from frappe import _
-from frappe.utils import flt, cint
+from frappe.utils import flt
 
 def execute(filters=None):
 	if not filters: filters = {}
@@ -29,9 +29,9 @@ def execute(filters=None):
 def get_columns(filters):
 	"""return columns based on filters"""
 
-	columns = [_("Item") + ":Link/Item:100"] + [_("Item Name") + "::150"] + [_("Description") + "::150"] + \
-	[_("Warehouse") + ":Link/Warehouse:100"] + [_("Batch") + ":Link/Batch:100"] + [_("Opening Qty") + "::90"] + \
-	[_("In Qty") + "::80"] + [_("Out Qty") + "::80"] + [_("Balance Qty") + "::90"]
+	columns = ["Item:Link/Item:100"] + ["Item Name::150"] + ["Description::150"] + \
+	["Warehouse:Link/Warehouse:100"] + ["Batch:Link/Batch:100"] + ["Opening Qty::90"] + \
+	["In Qty::80"] + ["Out Qty::80"] + ["Balance Qty::90"]
 
 	return columns
 
@@ -57,7 +57,6 @@ def get_stock_ledger_entries(filters):
 		conditions, as_dict=1)
 
 def get_item_warehouse_batch_map(filters):
-	float_precision = cint(frappe.db.get_default("float_precision")) or 3
 	sle = get_stock_ledger_entries(filters)
 	iwb_map = {}
 
@@ -68,14 +67,14 @@ def get_item_warehouse_batch_map(filters):
 			}))
 		qty_dict = iwb_map[d.item_code][d.warehouse][d.batch_no]
 		if d.posting_date < filters["from_date"]:
-			qty_dict.opening_qty += flt(d.actual_qty, float_precision)
+			qty_dict.opening_qty += flt(d.actual_qty)
 		elif d.posting_date >= filters["from_date"] and d.posting_date <= filters["to_date"]:
 			if flt(d.actual_qty) > 0:
-				qty_dict.in_qty += flt(d.actual_qty, float_precision)
+				qty_dict.in_qty += flt(d.actual_qty)
 			else:
-				qty_dict.out_qty += abs(flt(d.actual_qty, float_precision))
+				qty_dict.out_qty += abs(flt(d.actual_qty))
 
-		qty_dict.bal_qty += flt(d.actual_qty, float_precision)
+		qty_dict.bal_qty += flt(d.actual_qty)
 
 	return iwb_map
 

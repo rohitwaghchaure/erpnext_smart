@@ -1,0 +1,143 @@
+{
+ "allow_copy": 0, 
+ "allow_import": 0, 
+ "allow_rename": 0, 
+ "autoname": "CO/.#######", 
+ "creation": "2014-09-17 16:30:43.266222", 
+ "custom": 0, 
+ "docstatus": 0, 
+ "doctype": "DocType", 
+ "document_type": "", 
+ "fields": [
+  {
+   "fieldname": "invoice_no", 
+   "fieldtype": "Link", 
+   "in_list_view": 1, 
+   "label": "Invoice No", 
+   "options": "Sales Invoice", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "article_code", 
+   "fieldtype": "Link", 
+   "in_list_view": 1, 
+   "label": "Article Code", 
+   "options": "Item", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "fabric_code", 
+   "fieldtype": "Link", 
+   "in_list_view": 1, 
+   "label": "Fabric Code", 
+   "options": "Item", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "qty", 
+   "fieldtype": "Data", 
+   "in_list_view": 1, 
+   "label": "Qty", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "article_serial_no", 
+   "fieldtype": "Data", 
+   "in_list_view": 1, 
+   "label": "Article Serial No", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "actual_site", 
+   "fieldtype": "Data", 
+   "label": "Actual Site", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "fabric_site", 
+   "fieldtype": "Data", 
+   "label": "Fabric Site ", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "stock_entry_status", 
+   "fieldtype": "Select", 
+   "label": "Stock Entry Status", 
+   "options": "\nCompleted", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "amended_from", 
+   "fieldtype": "Link", 
+   "label": "Amended From", 
+   "no_copy": 1, 
+   "options": "Cut Order", 
+   "permlevel": 0, 
+   "print_hide": 1, 
+   "read_only": 1
+  }
+ ], 
+ "hide_heading": 0, 
+ "hide_toolbar": 0, 
+ "in_create": 0, 
+ "in_dialog": 0, 
+ "is_submittable": 1, 
+ "issingle": 0, 
+ "istable": 0, 
+ "modified": "2014-11-15 21:30:24.785382", 
+ "modified_by": "Administrator", 
+ "module": "Selling", 
+ "name": "Cut Order", 
+ "name_case": "", 
+ "owner": "Administrator", 
+ "permissions": [
+  {
+   "amend": 1, 
+   "apply_user_permissions": 0, 
+   "cancel": 1, 
+   "create": 1, 
+   "delete": 1, 
+   "email": 0, 
+   "export": 0, 
+   "import": 0, 
+   "permlevel": 0, 
+   "print": 1, 
+   "read": 1, 
+   "report": 0, 
+   "role": "Sales User", 
+   "set_user_permissions": 0, 
+   "submit": 1, 
+   "write": 1
+  }, 
+  {
+   "amend": 1, 
+   "apply_user_permissions": 0, 
+   "cancel": 1, 
+   "create": 1, 
+   "delete": 1, 
+   "email": 0, 
+   "export": 0, 
+   "import": 0, 
+   "permlevel": 0, 
+   "print": 1, 
+   "read": 1, 
+   "report": 0, 
+   "role": "Material User", 
+   "set_user_permissions": 0, 
+   "submit": 1, 
+   "write": 1
+  }
+ ], 
+ "read_only": 0, 
+ "read_only_onload": 0, 
+ "sort_field": "modified", 
+ "sort_order": "DESC"
+}

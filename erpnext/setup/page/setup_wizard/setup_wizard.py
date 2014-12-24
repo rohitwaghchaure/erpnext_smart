@@ -71,17 +71,16 @@ def setup_account(args=None):
 
 		frappe.db.set_default('desktop:home_page', 'desktop')
 
-		website_maker(args.company_name.strip(), args.company_tagline, args.name)
+		website_maker(args.company_name, args.company_tagline, args.name)
 		create_logo(args)
 
 		frappe.clear_cache()
 		frappe.db.commit()
 
 	except:
-		if args:
-			traceback = frappe.get_traceback()
-			for hook in frappe.get_hooks("setup_wizard_exception"):
-				frappe.get_attr(hook)(traceback, args)
+		traceback = frappe.get_traceback()
+		for hook in frappe.get_hooks("setup_wizard_exception"):
+			frappe.get_attr(hook)(traceback, args)
 
 		raise
 
@@ -135,7 +134,7 @@ def create_fiscal_year_and_company(args):
 	frappe.get_doc({
 		"doctype":"Company",
 		'domain': args.get("industry"),
-		'company_name':args.get('company_name').strip(),
+		'company_name':args.get('company_name'),
 		'abbr':args.get('company_abbr'),
 		'default_currency':args.get('currency'),
 		'country': args.get('country'),
@@ -166,7 +165,7 @@ def set_defaults(args):
 	global_defaults.update({
 		'current_fiscal_year': args.curr_fiscal_year,
 		'default_currency': args.get('currency'),
-		'default_company':args.get('company_name').strip(),
+		'default_company':args.get('company_name'),
 		"country": args.get("country"),
 	})
 
@@ -285,7 +284,7 @@ def create_taxes(args):
 			try:
 				frappe.get_doc({
 					"doctype":"Account",
-					"company": args.get("company_name").strip(),
+					"company": args.get("company_name"),
 					"parent_account": _("Duties and Taxes") + " - " + args.get("company_abbr"),
 					"account_name": args.get("tax_" + str(i)),
 					"group_or_ledger": "Ledger",
@@ -345,7 +344,7 @@ def create_customers(args):
 				"customer_type": "Company",
 				"customer_group": _("Commercial"),
 				"territory": args.get("country"),
-				"company": args.get("company_name").strip()
+				"company": args.get("company_name")
 			}).insert()
 
 			if args.get("customer_contact_" + str(i)):
@@ -365,7 +364,7 @@ def create_suppliers(args):
 				"doctype":"Supplier",
 				"supplier_name": supplier,
 				"supplier_type": _("Local"),
-				"company": args.get("company_name").strip()
+				"company": args.get("company_name")
 			}).insert()
 
 			if args.get("supplier_contact_" + str(i)):
@@ -405,7 +404,7 @@ def create_logo(args):
 def add_all_roles_to(name):
 	user = frappe.get_doc("User", name)
 	for role in frappe.db.sql("""select name from tabRole"""):
-		if role[0] not in ["Administrator", "Guest", "All", "Customer", "Supplier", "Partner", "Employee"]:
+		if role[0] not in ["Administrator", "Guest","Super Admin", "All", "Customer", "Supplier", "Partner", "Employee"]:
 			d = user.append("user_roles")
 			d.role = role[0]
 	user.save()
@@ -434,6 +433,4 @@ def load_messages(language):
 	send_translations(m)
 	return lang
 
-@frappe.whitelist()
-def load_languages():
-	return sorted(get_lang_dict().keys())
+

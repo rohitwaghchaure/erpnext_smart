@@ -7,6 +7,14 @@ def get_data():
 			"icon": "icon-star",
 			"items": [
 				{
+					"type": "page",
+					"name": "account-dashboard",
+					"icon": "icon-money",
+					"label": _("Dashboard"),
+					"description": _("Dashboard"),
+					"doctype": "Mreq",
+				},
+				{
 					"type": "doctype",
 					"name": "Journal Voucher",
 					"description": _("Accounting journal entries.")
@@ -60,11 +68,6 @@ def get_data():
 					"type": "doctype",
 					"name": "Period Closing Voucher",
 					"description": _("Close Balance Sheet and book Profit or Loss.")
-				},
-				{
-					"type": "doctype",
-					"name": "Payment Tool",
-					"description": _("Create Payment Entries against Orders or Invoices.")
 				},
 			]
 		},

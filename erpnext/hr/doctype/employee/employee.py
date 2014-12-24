@@ -174,6 +174,10 @@ class Employee(Document):
 			frappe.db.sql("""delete from `tabEvent` where repeat_on='Every Year' and
 				ref_type='Employee' and ref_name=%s""", self.name)
 
+	def get_branch(self, branch):
+		self.holiday_list=frappe.db.get_value('Branch',branch,'holiday_list')
+		return "Done"
+
 @frappe.whitelist()
 def get_retirement_date(date_of_birth=None):
 	import datetime
@@ -196,11 +200,19 @@ def make_salary_structure(source_name, target=None):
 	target.make_earn_ded_table()
 	return target
 
+
+@frappe.whitelist()
+def get_all_roles(arg=None):
+	"""return all roles"""
+	return [r[0] for r in frappe.db.sql("""select name from tabSkills
+		""")]
+
+
 def validate_employee_role(doc, method):
 	# called via User hook
 	if "Employee" in [d.role for d in doc.get("user_roles")]:
 		if not frappe.db.get_value("Employee", {"user_id": doc.name}):
-			frappe.msgprint(_("Please set User ID field in an Employee record to set Employee Role"))
+			frappe.msgprint("Please set User ID field in an Employee record to set Employee Role")
 			doc.get("user_roles").remove(doc.get("user_roles", {"role": "Employee"})[0])
 
 def update_user_permissions(doc, method):

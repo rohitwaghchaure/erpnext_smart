@@ -1,7 +1,7 @@
 frappe.pages['pos'].onload = function(wrapper) {
 	frappe.ui.make_app_page({
 		parent: wrapper,
-		title: __('Start POS'),
+		title: 'Start POS',
 		single_column: true
 	});
 

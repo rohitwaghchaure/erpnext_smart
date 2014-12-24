@@ -46,6 +46,26 @@ def get_data():
 					"name": "Job Opening",
 					"description": _("Opening for a Job."),
 				},
+				{
+					"type": "doctype",
+					"name": "Loan",
+					"description": _("Loan"),
+				},
+				{
+					"type": "doctype",
+					"name": "Settlement",
+					"description": _("Employee Settlement"),
+				},
+				{
+					"type": "doctype",
+					"name": "HR Daily Activities",
+					"description": _("HR Daily Activities "),
+				},
+				{
+					"type": "doctype",
+					"name": "Weekly Salary Slip",
+					"description": _("Weekly Salary Slips"),
+				},
 			]
 		},
 		{

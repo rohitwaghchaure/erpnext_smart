@@ -1,5 +1,5 @@
 {
-  "allow_import": 1, 
+ "allow_import": 1, 
  "autoname": "TASK.#####", 
  "creation": "2013-01-29 19:25:50", 
  "docstatus": 0, 
@@ -217,7 +217,7 @@
  "icon": "icon-check", 
  "idx": 1, 
  "max_attachments": 5, 
- "modified": "2014-05-27 03:49:20.708319", 
+ "modified": "2014-12-13 16:30:58.362129", 
  "modified_by": "Administrator", 
  "module": "Projects", 
  "name": "Task", 
@@ -233,6 +233,24 @@
    "read": 1, 
    "report": 1, 
    "role": "Projects User", 
+   "submit": 0, 
+   "write": 1
+  }, 
+  {
+   "amend": 0, 
+   "apply_user_permissions": 0, 
+   "cancel": 0, 
+   "create": 1, 
+   "delete": 0, 
+   "email": 0, 
+   "export": 0, 
+   "import": 0, 
+   "permlevel": 0, 
+   "print": 0, 
+   "read": 1, 
+   "report": 0, 
+   "role": "All", 
+   "set_user_permissions": 0, 
    "submit": 0, 
    "write": 1
   }

@@ -213,11 +213,10 @@ cur_frm.cscript.voucher_type = function(doc, cdt, cdn) {
 		return;
 
 	var update_jv_details = function(doc, r) {
-		var jvdetail = frappe.model.add_child(doc, "Journal Voucher Detail", "entries");
-		$.each(r, function(i, d) {
-			var row = frappe.model.add_child(doc, "Journal Voucher Detail", "entries");
-			row.account = d.account;
-			row.balance = d.balance;
+		$.each(r.message, function(i, d) {
+			var jvdetail = frappe.model.add_child(doc, "Journal Voucher Detail", "entries");
+			jvdetail.account = d.account;
+			jvdetail.balance = d.balance;
 		});
 		refresh_field("entries");
 	}
@@ -232,7 +231,7 @@ cur_frm.cscript.voucher_type = function(doc, cdt, cdn) {
 			},
 			callback: function(r) {
 				if(r.message) {
-					update_jv_details(doc, [r.message]);
+					update_jv_details(doc, r);
 				}
 			}
 		})
@@ -246,7 +245,7 @@ cur_frm.cscript.voucher_type = function(doc, cdt, cdn) {
 			callback: function(r) {
 				frappe.model.clear_table(doc, "entries");
 				if(r.message) {
-					update_jv_details(doc, r.message);
+					update_jv_details(doc, r);
 				}
 				cur_frm.set_value("is_opening", "Yes")
 			}

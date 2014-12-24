@@ -6,15 +6,15 @@ frappe.views.calendar["Task"] = {
 		"start": "exp_start_date",
 		"end": "exp_end_date",
 		"id": "name",
-		"title": "subject",
+		"title": __("subject"),
 		"allDay": "allDay"
 	},
 	gantt: true,
 	filters: [
 		{
-			"fieldtype": "Link",
-			"fieldname": "project",
-			"options": "Project",
+			"fieldtype": "Link", 
+			"fieldname": "project", 
+			"options": "Project", 
 			"label": __("Project")
 		}
 	],

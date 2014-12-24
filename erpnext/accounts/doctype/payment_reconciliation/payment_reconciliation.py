@@ -96,14 +96,13 @@ class PaymentReconciliation(Document):
 
 			payment_amount = payment_amount[0][0] if payment_amount else 0
 
-			if d.invoice_amount - payment_amount > 0.005:
+			if d.invoice_amount > payment_amount:
 				non_reconciled_invoices.append({
 					'voucher_no': d.voucher_no,
 					'voucher_type': d.voucher_type,
 					'posting_date': d.posting_date,
 					'invoice_amount': flt(d.invoice_amount),
-					'outstanding_amount': flt(d.invoice_amount - payment_amount, 2)
-				})
+					'outstanding_amount': d.invoice_amount - payment_amount})
 
 		self.add_invoice_entries(non_reconciled_invoices)
 
@@ -125,7 +124,7 @@ class PaymentReconciliation(Document):
 		dr_or_cr = "credit" if self.party_type == "Customer" else "debit"
 		lst = []
 		for e in self.get('payment_reconciliation_payments'):
-			if e.invoice_type and e.invoice_number and e.allocated_amount:
+			if e.invoice_type and e.invoice_number:
 				lst.append({
 					'voucher_no' : e.journal_voucher,
 					'voucher_detail_no' : e.voucher_detail_number,
@@ -135,7 +134,7 @@ class PaymentReconciliation(Document):
 					'is_advance' : e.is_advance,
 					'dr_or_cr' : dr_or_cr,
 					'unadjusted_amt' : flt(e.amount),
-					'allocated_amt' : flt(e.allocated_amount)
+					'allocated_amt' : flt(e.amount)
 				})
 
 		if lst:
@@ -163,23 +162,18 @@ class PaymentReconciliation(Document):
 
 		invoices_to_reconcile = []
 		for p in self.get("payment_reconciliation_payments"):
-			if p.invoice_type and p.invoice_number and p.allocated_amount:
+			if p.invoice_type and p.invoice_number:
 				invoices_to_reconcile.append(p.invoice_number)
 
 				if p.invoice_number not in unreconciled_invoices.get(p.invoice_type, {}):
 					frappe.throw(_("{0}: {1} not found in Invoice Details table")
 						.format(p.invoice_type, p.invoice_number))
 
-				if flt(p.allocated_amount) > flt(p.amount):
-					frappe.throw(_("Row {0}: Allocated amount {1} must be less than or equals to JV amount {2}")
-						.format(p.idx, p.allocated_amount, p.amount))
-
-				if flt(p.allocated_amount) > unreconciled_invoices.get(p.invoice_type, {}).get(p.invoice_number):
-					frappe.throw(_("Row {0}: Allocated amount {1} must be less than or equals to invoice outstanding amount {2}")
-						.format(p.idx, p.allocated_amount, unreconciled_invoices.get(p.invoice_type, {}).get(p.invoice_number)))
+				if p.amount > unreconciled_invoices.get(p.invoice_type, {}).get(p.invoice_number):
+					frappe.throw(_("Row {0}: Payment amount must be less than or equals to invoice outstanding amount. Please refer Note below.").format(p.idx))
 
 		if not invoices_to_reconcile:
-			frappe.throw(_("Please select Allocated Amount, Invoice Type and Invoice Number in atleast one row"))
+			frappe.throw(_("Please select Invoice Type and Invoice Number in atleast one row"))
 
 	def check_condition(self, dr_or_cr):
 		cond = self.from_date and " and posting_date >= '" + self.from_date + "'" or ""

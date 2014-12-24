@@ -23,7 +23,7 @@ class SalesBOM(Document):
 	def validate_main_item(self):
 		"""main item must have Is Stock Item as No and Is Sales Item as Yes"""
 		if not frappe.db.sql("""select name from tabItem where name=%s and
-			ifnull(is_stock_item,'')='No' and ifnull(is_sales_item,'')='Yes'""", self.new_item_code):
+			ifnull(is_stock_item,'')='No' and ifnull(is_sales_item,'')='Yes'""", self.new_item_code, debug=1):
 			frappe.throw(_("Parent Item {0} must be not Stock Item and must be a Sales Item").format(self.new_item_code))
 
 	def get_item_details(self, name):

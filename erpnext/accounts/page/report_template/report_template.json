@@ -1,0 +1,24 @@
+{
+ "content": null, 
+ "creation": "2014-11-05 17:26:35.338109", 
+ "docstatus": 0, 
+ "doctype": "Page", 
+ "modified": "2014-11-15 12:51:18.207551", 
+ "modified_by": "Administrator", 
+ "module": "Accounts", 
+ "name": "report-template", 
+ "owner": "Administrator", 
+ "page_name": "Report Template", 
+ "roles": [
+  {
+   "role": "Administrator"
+  }, 
+  {
+   "role": "Sales User"
+  }
+ ], 
+ "script": null, 
+ "standard": "Yes", 
+ "style": null, 
+ "title": "External Product Catalog"
+}

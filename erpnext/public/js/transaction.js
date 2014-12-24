@@ -155,7 +155,7 @@ erpnext.TransactionController = erpnext.stock.StockController.extend({
 							project_name: item.project_name || me.frm.doc.project_name
 						}
 					},
-
+					
 					callback: function(r) {
 						if(!r.exc) {
 							me.frm.script_manager.trigger("price_list_rate", cdt, cdn);
@@ -402,26 +402,20 @@ erpnext.TransactionController = erpnext.stock.StockController.extend({
 	},
 
 	_set_values_for_item_list: function(children) {
-		var me = this;
 		$.each(children, function(i, d) {
-			var existing_pricing_rule = frappe.model.get_value(d.doctype, d.name, "pricing_rule");
 			$.each(d, function(k, v) {
 				if (["doctype", "name"].indexOf(k)===-1) {
 					frappe.model.set_value(d.doctype, d.name, k, v);
 				}
 			});
-			// if pricing rule set as blank from an existing value, apply price_list
-			if(!me.frm.doc.ignore_pricing_rule && existing_pricing_rule && !d.pricing_rule) {
-				me.apply_price_list(frappe.get_doc(d.doctype, d.name));
-			}
 		});
 	},
 
-	apply_price_list: function(item) {
+	apply_price_list: function() {
 		var me = this;
 		return this.frm.call({
 			method: "erpnext.stock.get_item_details.apply_price_list",
-			args: {	args: this._get_args(item) },
+			args: {	args: this._get_args() },
 			callback: function(r) {
 				if (!r.exc) {
 					me.in_apply_price_list = true;
@@ -833,35 +827,4 @@ erpnext.TransactionController = erpnext.stock.StockController.extend({
 				.appendTo($(this.frm.fields_dict.other_charges_calculation.wrapper).empty());
 		}
 	},
-
-	is_recurring: function() {
-		// set default values for recurring documents
-		if(this.frm.doc.is_recurring) {
-			var owner_email = this.frm.doc.owner=="Administrator"
-				? frappe.user_info("Administrator").email
-				: this.frm.doc.owner;
-
-			this.frm.doc.notification_email_address = $.map([cstr(owner_email),
-				cstr(this.frm.doc.contact_email)], function(v) { return v || null; }).join(", ");
-			this.frm.doc.repeat_on_day_of_month = frappe.datetime.str_to_obj(this.frm.doc.posting_date).getDate();
-		}
-
-		refresh_many(["notification_email_address", "repeat_on_day_of_month"]);
-	},
-
-	from_date: function() {
-		// set to_date
-		if(this.frm.doc.from_date) {
-			var recurring_type_map = {'Monthly': 1, 'Quarterly': 3, 'Half-yearly': 6,
-				'Yearly': 12};
-
-			var months = recurring_type_map[this.frm.doc.recurring_type];
-			if(months) {
-				var to_date = frappe.datetime.add_months(this.frm.doc.from_date,
-					months);
-				this.frm.doc.to_date = frappe.datetime.add_days(to_date, -1);
-				refresh_field('to_date');
-			}
-		}
-	}
 });

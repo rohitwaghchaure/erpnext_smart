@@ -27,6 +27,21 @@ def install(country=None):
 		{'doctype': 'Item Group', 'item_group_name': _('Consumable'),
 			'is_group': 'No', 'parent_item_group': _('All Item Groups') },
 
+		{'doctype': 'Item Group', 'item_group_name': _('Stationary'),
+			'is_group': 'No', 'parent_item_group': _('All Item Groups') },
+
+		{'doctype': 'Item Group', 'item_group_name': _('Fabric Swatch Item'),
+			'is_group': 'No', 'parent_item_group': _('All Item Groups') },
+		{'doctype': 'Item Group', 'item_group_name': _('Magazines'),
+			'is_group': 'No', 'parent_item_group': _('All Item Groups') },
+		{'doctype': 'Item Group', 'item_group_name': _('Fabric'),
+			'is_group': 'No', 'parent_item_group': _('All Item Groups') },
+		{'doctype': 'Item Group', 'item_group_name': _('Tailoring'),
+			'is_group': 'No', 'parent_item_group': _('All Item Groups') },
+		{'doctype': 'Item Group', 'item_group_name': _('Merchandise'),
+			'is_group': 'No', 'parent_item_group': _('All Item Groups') },
+		{'doctype': 'Item Group', 'item_group_name': _('Tools'),
+			'is_group': 'No', 'parent_item_group': _('All Item Groups') },
 		# deduction type
 		{'doctype': 'Deduction Type', 'name': _('Income Tax'), 'description': _('Income Tax'), 'deduction_name': _('Income Tax')},
 

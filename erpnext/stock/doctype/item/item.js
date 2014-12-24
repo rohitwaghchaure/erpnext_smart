@@ -19,7 +19,7 @@ cur_frm.cscript.refresh = function(doc) {
 	cur_frm.cscript.edit_prices_button();
 
 	if (!doc.__islocal && doc.is_stock_item == 'Yes') {
-		cur_frm.toggle_enable(['has_serial_no', 'is_stock_item', 'valuation_method', 'has_batch_no'],
+		cur_frm.toggle_enable(['has_serial_no', 'is_stock_item', 'valuation_method'],
 			(doc.__onload && doc.__onload.sle_exists=="exists") ? false : true);
 	}
 
@@ -29,6 +29,7 @@ cur_frm.cscript.refresh = function(doc) {
 	}
 
 	erpnext.item.toggle_reqd(cur_frm);
+	
 }
 
 erpnext.item.toggle_reqd = function(frm) {
@@ -47,7 +48,7 @@ cur_frm.cscript.make_dashboard = function() {
 }
 
 cur_frm.cscript.edit_prices_button = function() {
-	cur_frm.add_custom_button(__("Add / Edit Prices"), function() {
+	cur_frm.add_custom_button("Add / Edit Prices", function() {
 		frappe.set_route("Report", "Item Price", {"item_code": cur_frm.doc.name});
 	}, "icon-money");
 }
@@ -158,6 +159,7 @@ cur_frm.cscript.weight_to_validate = function(doc, cdt, cdn){
 
 cur_frm.cscript.validate = function(doc, cdt, cdn){
 	cur_frm.cscript.weight_to_validate(doc, cdt, cdn);
+	setTimeout(function(){refresh_field('barcode_image');},1000)
 }
 
 cur_frm.fields_dict.item_customer_details.grid.get_field("customer_name").get_query = function(doc, cdt, cdn) {
@@ -175,14 +177,87 @@ cur_frm.cscript.copy_from_item_group = function(doc) {
 	});
 }
 
-cur_frm.cscript.image = function() {
-	refresh_field("image_view");
+// cur_frm.cscript.image = function() {
+// 	refresh_field("image_view");
 
-	if(!cur_frm.doc.image) return;
+// 	if(!cur_frm.doc.image) return;
 
-	if(!cur_frm.doc.description_html)
-		cur_frm.cscript.add_image(cur_frm.doc);
-	else {
-		msgprint(__("You may need to update: {0}", [frappe.meta.get_docfield(cur_frm.doc.doctype, "description_html").label]));
+// 	if(!cur_frm.doc.description_html)
+// 		cur_frm.cscript.add_image(cur_frm.doc);
+// 	else {
+// 		msgprint(__("You may need to update: {0}", [frappe.meta.get_docfield(cur_frm.doc.doctype, "description_html").label]));
+// 	}
+// }
+//Rohit
+cur_frm.cscript.image = function(doc, cdt, cdn) {
+var d = locals[cdt][cdn]
+d.image_view = '<table style="width: 100%; table-layout: fixed;"><tr><td><img src="'+d.image+'" width="100px"></td></tr></table>'
+refresh_field("measurement_item");
+}
+cur_frm.cscript.add_image = function(doc, cdt, cdn) {
+var d = locals[cdt][cdn]
+d.image_viewer = '<table style="width: 100%; table-layout: fixed;"><tr><td ><img src="'+d.add_image+'" width="100px"></td></tr></table>'
+refresh_field("style_item");
+}
+cur_frm.cscript.measurement_template = function(doc, cdt, cdn){
+get_server_fields('get_measurement_details',doc.measurement_template,'',doc ,cdt, cdn,1, function(){
+refresh_field('measurement_item')
+})
+}
+cur_frm.cscript.style = function(doc, cdt, cdn){
+var	d = locals[cdt][cdn]
+get_server_fields('get_style_details',d.style,'',doc ,cdt, cdn,1, function(){
+refresh_field('style_item')
+})
+}
+// cur_frm.cscript.onload= function(doc, cdt, cdn) {
+// 	alert("hii")
+// return get_server_fields('get_details','', '', doc, cdt, cdn, 1,function(){
+// refresh_field('size_item')
+// });
+// };
+
+cur_frm.cscript.item_group =function(doc, cdt, cdn){
+	if(doc.item_group == 'Tailoring'){
+		doc.has_serial_no = 'Yes'
+		refresh_field('has_serial_no')
 	}
 }
+
+
+//for Slide Show
+
+cur_frm.add_fetch('default_branch', 'warehouse', 'default_warehouse')
+{% include 'stock/custom_items.js' %}
+cur_frm.script_manager.make(erpnext.stock.CustomItem);
+
+
+cur_frm.fields_dict.item_specification_details.grid.get_field("qi_process").get_query = function(doc, cdt, cdn) {
+		var d = locals[cdt][cdn]
+		get_list = cur_frm.cscript.get_list(doc, cdt, cdn)
+      	return {
+      		query : "tools.tools_management.custom_methods.get_process_details",
+      		filters : {
+      			'obj':JSON.stringify(get_list),
+      		}
+      	}
+}
+
+cur_frm.cscript.get_list= function(doc, cdt, cdn){
+	var cl = doc.process_item || [ ]
+	data = []
+	$.each(cl, function(i){
+		if(parseInt(cl[i].quality_check)==1 || parseInt(cl[i].trials_qc)==1){
+			data.push(cl[i].process_name)
+		}
+	})
+	return data
+}
+
+// cur_frm.cscript.onload_post_render = function() {
+// 	frappe.require('assets/frappe/js/lib/jscolor/jscolor.js');
+// 	$.each(["fabric_color"], function(i, v) {
+// 		$(cur_frm.fields_dict[v].input).addClass('color');
+// 	})
+// 	jscolor.bind();
+// }

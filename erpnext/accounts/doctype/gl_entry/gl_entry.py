@@ -25,8 +25,7 @@ class GLEntry(Document):
 		validate_balance_type(self.account, adv_adj)
 
 		# Update outstanding amt on against voucher
-		if self.against_voucher_type in ['Journal Voucher', 'Sales Invoice', 'Purchase Invoice'] \
-			and self.against_voucher and update_outstanding == 'Yes':
+		if self.against_voucher and update_outstanding == 'Yes':
 				update_outstanding_amt(self.account, self.against_voucher_type,
 					self.against_voucher)
 
@@ -124,10 +123,6 @@ def update_outstanding_amt(account, against_voucher_type, against_voucher, on_ca
 			from `tabGL Entry` where voucher_type = 'Journal Voucher' and voucher_no = %s
 			and account = %s and ifnull(against_voucher, '') = ''""",
 			(against_voucher, account))[0][0])
-		if not against_voucher_amount:
-			frappe.throw(_("Against Journal Voucher {0} is already adjusted against some other voucher")
-				.format(against_voucher))
-
 		bal = against_voucher_amount + bal
 		if against_voucher_amount < 0:
 			bal = -bal

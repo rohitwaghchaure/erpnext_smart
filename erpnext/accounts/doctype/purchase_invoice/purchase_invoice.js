@@ -232,6 +232,7 @@ cur_frm.fields_dict['entries'].grid.get_field('project_name').get_query = functi
 	}
 }
 
+
 cur_frm.cscript.select_print_heading = function(doc,cdt,cdn){
 	if(doc.select_print_heading){
 		// print heading

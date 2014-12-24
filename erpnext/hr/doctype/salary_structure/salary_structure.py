@@ -110,3 +110,40 @@ def make_salary_slip(source_name, target_doc=None):
 	}, target_doc, postprocess)
 
 	return doc
+
+
+# @frappe.whitelist()
+def make_salary_slip2(source_name, target_doc=None):
+	def postprocess(source, target):
+		target.run_method("pull_emp_details")
+		target.run_method("get_leave_details")
+		target.run_method("calculate_net_pay")
+
+	doc = get_mapped_doc("Salary Structure", source_name, {
+		"Salary Structure": {
+			"doctype": "Weekly Salary Slips",
+			"field_map": {
+				"total_earning": "gross_pay"
+			}
+		},
+		"Salary Structure Deduction": {
+			"doctype": "Weekly Salary Slip Deduction",
+			"field_map": [
+				["depend_on_lwp", "d_depends_on_lwp"],
+				["d_modified_amt", "d_amount"],
+				["d_modified_amt", "d_modified_amount"]
+			],
+			"add_if_empty": True
+		},
+		"Salary Structure Earning": {
+			"doctype": "Weekly Salary Slip Earning",
+			"field_map": [
+				["depend_on_lwp", "e_depends_on_lwp"],
+				["modified_value", "e_modified_amount"],
+				["modified_value", "e_amount"]
+			],
+			"add_if_empty": True
+		}
+	}, target_doc, postprocess)
+
+	return doc

@@ -1,5 +1,5 @@
- (Half Day), (Half Day)
- and year: , and year: 
+ (Half Day),
+ and year: ,
 """ does not exists","""Не существует"
 %  Delivered,% При поставке
 % Amount Billed,% Сумма счета
@@ -35,14 +35,13 @@
 "<a href=""#Sales Browser/Territory"">Add / Edit</a>","<a href=""#Sales Browser/Territory""> Добавить / Изменить </>"
 "<h4>Default Template</h4><p>Uses <a href=""http://jinja.pocoo.org/docs/templates/"">Jinja Templating</a> and all the fields of Address (including Custom Fields if any) will be available</p><pre><code>{{ address_line1 }}&lt;br&gt;{% if address_line2 %}{{ address_line2 }}&lt;br&gt;{% endif -%}{{ city }}&lt;br&gt;{% if state %}{{ state }}&lt;br&gt;{% endif -%}{% if pincode %} PIN:  {{ pincode }}&lt;br&gt;{% endif -%}{{ country }}&lt;br&gt;{% if phone %}Phone: {{ phone }}&lt;br&gt;{% endif -%}{% if fax %}Fax: {{ fax }}&lt;br&gt;{% endif -%}{% if email_id %}Email: {{ email_id }}&lt;br&gt;{% endif -%}</code></pre>","<h4> умолчанию шаблона </ h4>  <p> Использует <a href=""http://jinja.pocoo.org/docs/templates/""> Jinja шаблонов </ A> и все поля Адрес ( в том числе пользовательских полей если таковые имеются) будут доступны </ P>  <pre> <code> {{address_line1}} инструменты  {%, если address_line2%} {{address_line2}} инструменты { % ENDIF -%}  {{город}} инструменты  {%, если состояние%} {{состояние}} инструменты {% ENDIF -%}  {%, если пин-код%} PIN-код: {{пин-код}} инструменты {% ENDIF -%}  {{страна}} инструменты  {%, если телефон%} Телефон: {{телефон}} инструменты { % ENDIF -%}  {%, если факс%} Факс: {{факс}} инструменты {% ENDIF -%}  {%, если email_id%} Email: {{email_id}} инструменты ; {% ENDIF -%}  </ код> </ предварительно>"
 A Customer Group exists with same name please change the Customer name or rename the Customer Group,"Группа клиентов существует с тем же именем, пожалуйста изменить имя клиентов или переименовать группу клиентов"
-A Customer exists with same name,"Клиент с таким именем уже существует
-"
+A Customer exists with same name,Существует клиентов с одноименным названием
 A Lead with this email id should exist,Ведущий с этим электронный идентификатор должен существовать
 A Product or Service,Продукт или сервис
 A Supplier exists with same name,Поставщик существует с одноименным названием
 A symbol for this currency. For e.g. $,"Символ для этой валюты. Для например, $"
 AMC Expiry Date,КУА срок действия
-Abbr,Аббревиатура
+Abbr,Сокр
 Abbreviation cannot have more than 5 characters,Аббревиатура не может иметь более 5 символов
 Above Value,Выше стоимости
 Absent,Рассеянность
@@ -54,10 +53,10 @@ Accepted Warehouse,Принято Склад
 Account,Аккаунт
 Account Balance,Остаток на счете
 Account Created: {0},Учетная запись создана: {0}
-Account Details,Подробности аккаунта
+Account Details,Детали аккаунта
 Account Head,Счет руководитель
 Account Name,Имя Учетной Записи
-Account Type,Тип учетной записи
+Account Type,Тип счета
 "Account balance already in Credit, you are not allowed to set 'Balance Must Be' as 'Debit'","Баланс счета уже в кредит, вы не можете установить ""баланс должен быть 'как' Debit '"
 "Account balance already in Debit, you are not allowed to set 'Balance Must Be' as 'Credit'","Баланс счета уже в дебет, вы не можете установить ""баланс должен быть 'как' Кредит»"
 Account for the warehouse (Perpetual Inventory) will be created under this Account.,Счет для склада (непрерывной инвентаризации) будут созданы под этой учетной записью.
@@ -67,13 +66,13 @@ Account with child nodes cannot be converted to ledger,Счет с дочерн�
 Account with existing transaction can not be converted to group.,Счет с существующей сделки не могут быть преобразованы в группы.
 Account with existing transaction can not be deleted,Счет с существующей сделки не могут быть удалены
 Account with existing transaction cannot be converted to ledger,Счет с существующей сделки не могут быть преобразованы в книге
-Account {0} cannot be a Group,Аккаунт {0} не может быть в группе
-Account {0} does not belong to Company {1},Аккаунт {0} не принадлежит компании {1}
-Account {0} does not belong to company: {1},Аккаунт {0} не принадлежит компании: {1}
-Account {0} does not exist,Аккаунт {0} не существует
+Account {0} cannot be a Group,Счет {0} не может быть группа
+Account {0} does not belong to Company {1},Счет {0} не принадлежит компании {1}
+Account {0} does not belong to company: {1},Счет {0} не принадлежит компании: {1}
+Account {0} does not exist,Счет {0} не существует
 Account {0} has been entered more than once for fiscal year {1},Счет {0} был введен более чем один раз в течение финансового года {1}
-Account {0} is frozen,Аккаунт {0} заморожен
-Account {0} is inactive,Аккаунт {0} неактивен
+Account {0} is frozen,Счет {0} заморожен
+Account {0} is inactive,Счет {0} неактивен
 Account {0} is not valid,Счет {0} не является допустимым
 Account {0} must be of type 'Fixed Asset' as Item {1} is an Asset Item,"Счет {0} должен быть типа ""Fixed Asset"", как товара {1} является активом Пункт"
 Account {0}: Parent account {1} can not be a ledger,Счет {0}: Родитель счета {1} не может быть книга
@@ -85,16 +84,16 @@ Accountant,Бухгалтер
 Accounting,Пользователи
 "Accounting Entries can be made against leaf nodes, called","Бухгалтерские записи могут быть сделаны против конечных узлов, называется"
 "Accounting entry frozen up to this date, nobody can do / modify entry except role specified below.","Бухгалтерская запись заморожены до этой даты, никто не может сделать / изменить запись, кроме роли, указанной ниже."
-Accounting journal entries.,Журнал бухгалтерских записей.
+Accounting journal entries.,Бухгалтерские Journal.
 Accounts,Учётные записи
 Accounts Browser,Дебиторская Браузер
 Accounts Frozen Upto,Счета заморожены До
 Accounts Payable,Ежемесячные счета по кредиторской задолженности
 Accounts Receivable,Дебиторская задолженность
-Accounts Settings, Настройки аккаунта
+Accounts Settings,Счета Настройки
 Active,Активен
-Active: Will extract emails from ,Active: Will extract emails from 
-Activity,Активность
+Active: Will extract emails from ,
+Activity,Деятельность
 Activity Log,Журнал активности
 Activity Log:,Журнал активности:
 Activity Type,Тип активности
@@ -107,7 +106,7 @@ Actual Invoice Date,Фактическая стоимость Дата
 Actual Posting Date,Фактический Дата проводки
 Actual Qty,Фактический Кол-во
 Actual Qty (at source/target),Фактический Кол-во (в источнике / цели)
-Actual Qty After Transaction,Остаток после проведения
+Actual Qty After Transaction,Фактический Кол После проведения операции
 Actual Qty: Quantity available in the warehouse.,Фактический Кол-во: Есть в наличии на складе.
 Actual Quantity,Фактический Количество
 Actual Start Date,Фактическое начало Дата
@@ -255,8 +254,8 @@ Approving Role,Утверждении Роль
 Approving Role cannot be same as role the rule is Applicable To,"Утверждении роль не может быть такой же, как роль правило применимо к"
 Approving User,Утверждении Пользователь
 Approving User cannot be same as user the rule is Applicable To,"Утверждении покупатель не может быть такой же, как пользователь правило применимо к"
-Are you sure you want to STOP ,Are you sure you want to STOP 
-Are you sure you want to UNSTOP ,Are you sure you want to UNSTOP 
+Are you sure you want to STOP ,
+Are you sure you want to UNSTOP ,
 Arrear Amount,Просроченной задолженности Сумма
 "As Production Order can be made for this item, it must be a stock item.","Как Производственный заказ можно сделать по этой статье, он должен быть запас пункт."
 As per Stock UOM,По фондовой UOM
@@ -285,7 +284,7 @@ Auto Accounting For Stock Settings,Авто Учет акций Настройк
 Auto Material Request,Авто Материал Запрос
 Auto-raise Material Request if quantity goes below re-order level in a warehouse,"Авто-рейз Материал Запрос, если количество идет ниже уровня повторного заказа на складе"
 Automatically compose message on submission of transactions.,Автоматически создавать сообщение о подаче сделок.
-Automatically extract Job Applicants from a mail box ,Automatically extract Job Applicants from a mail box 
+Automatically extract Job Applicants from a mail box ,
 Automatically extract Leads from a mail box e.g.,"Автоматическое извлечение ведет от почтового ящика, например,"
 Automatically updated via Stock Entry of type Manufacture/Repack,Автоматически обновляется через фондовой позиции типа Производство / Repack
 Automotive,Автомобилестроение
@@ -314,8 +313,8 @@ BOM replaced,BOM заменить
 BOM {0} for Item {1} in row {2} is inactive or not submitted,BOM {0} для Пункт {1} в строке {2} неактивен или не представили
 BOM {0} is not active or not submitted,BOM {0} не является активным или не представили
 BOM {0} is not submitted or inactive BOM for Item {1},BOM {0} не представлено или неактивным спецификации по пункту {1}
-Backup Manager,Менеджер резервных копий
-Backup Right Now,Сделать резервную копию
+Backup Manager,Backup Manager
+Backup Right Now,Резервное копирование прямо сейчас
 Backups will be uploaded to,Резервные копии будут размещены на
 Balance Qty,Баланс Кол-во
 Balance Sheet,Балансовый отчет
@@ -324,7 +323,7 @@ Balance for Account {0} must always be {1},Весы для счета {0} дол
 Balance must be,Баланс должен быть
 "Balances of Accounts of type ""Bank"" or ""Cash""",Остатки на счетах типа «Банк» или «Денежные средства»
 Bank,Банк:
-Bank / Cash Account,Банк / Расчетный счет
+Bank / Cash Account,Банк / Денежный счет
 Bank A/C No.,Bank A / С №
 Bank Account,Банковский счет
 Bank Account No.,Счет №
@@ -337,10 +336,10 @@ Bank Reconciliation,Банк примирения
 Bank Reconciliation Detail,Банк примирения Подробно
 Bank Reconciliation Statement,Заявление Банк примирения
 Bank Voucher,Банк Ваучер
-Bank/Cash Balance,Банк / Баланс счета
+Bank/Cash Balance,Банк / Остатки денежных средств
 Banking,Банковское дело
-Barcode,Штрихкод
-Barcode {0} already used in Item {1},Штрихкод {0} уже используется в позиции {1}
+Barcode,Штрих
+Barcode {0} already used in Item {1},Штрих {0} уже используется в пункте {1}
 Based On,На основе
 Basic,Базовый
 Basic Info,Введение
@@ -358,9 +357,9 @@ Batch-Wise Balance History,Порционно Баланс История
 Batched for Billing,Batched для биллинга
 Better Prospects,Лучшие перспективы
 Bill Date,Дата оплаты
-Bill No,Номер накладной
+Bill No,Билл Нет
 Bill No {0} already booked in Purchase Invoice {1},Билл Нет {0} уже заказали в счете-фактуре {1}
-Bill of Material,Накладная материалов
+Bill of Material,Спецификация материала
 Bill of Material to be considered for manufacturing,"Билл материала, который будет рассматриваться на производстве"
 Bill of Materials (BOM),Ведомость материалов (BOM)
 Billable,Платежные
@@ -380,10 +379,10 @@ Birthday,Дата рождения
 Block Date,Блок Дата
 Block Days,Блок дня
 Block leave applications by department.,Блок отпуска приложений отделом.
-Blog Post,Пост блога
+Blog Post,Сообщение блога
 Blog Subscriber,Блог абонента
 Blood Group,Группа крови
-Both Warehouse must belong to same Company,Оба Склад должены принадлежать той же компании
+Both Warehouse must belong to same Company,Оба Склад должен принадлежать той же компании
 Box,Рамка
 Branch,Ветвь:
 Brand,Бренд
@@ -402,13 +401,13 @@ Budget Distribution Detail,Деталь Распределение бюджет�
 Budget Distribution Details,Распределение бюджета Подробности
 Budget Variance Report,Бюджет Разница Сообщить
 Budget cannot be set for Group Cost Centers,Бюджет не может быть установлено для группы МВЗ
-Build Report,Создать отчет
+Build Report,Построить Сообщить
 Bundle items at time of sale.,Bundle детали на момент продажи.
 Business Development Manager,Менеджер по развитию бизнеса
 Buying,Покупка
 Buying & Selling,Покупка и продажа
 Buying Amount,Покупка Сумма
-Buying Settings,Настройка покупки
+Buying Settings,Покупка Настройки
 "Buying must be checked, if Applicable For is selected as {0}","Покупка должна быть проверена, если выбран Применимо для как {0}"
 C-Form,C-образный
 C-Form Applicable,C-образный Применимо
@@ -422,13 +421,13 @@ CENVAT Service Tax,CENVAT налоговой службы
 CENVAT Service Tax Cess 1,CENVAT налоговой службы Цесс 1
 CENVAT Service Tax Cess 2,CENVAT налоговой службы Цесс 2
 Calculate Based On,Рассчитать на основе
-Calculate Total Score,Рассчитать общую сумму
-Calendar Events,Календарные события
-Call,Звонок
-Calls,Звонки
+Calculate Total Score,Рассчитать общее количество баллов
+Calendar Events,Календарь
+Call,Вызов
+Calls,Вызовы
 Campaign,Кампания
 Campaign Name,Название кампании
-Campaign Name is required,Необходимо ввести имя компании
+Campaign Name is required,Название кампании требуется
 Campaign Naming By,Кампания Именование По
 Campaign-.####,Кампания-.# # # #
 Can be approved by {0},Может быть одобрено {0}
@@ -470,12 +469,12 @@ Carry Forwarded Leaves,Carry направляются листья
 Case No(s) already in use. Try from Case No {0},Случай Нет (ы) уже используется. Попробуйте из дела № {0}
 Case No. cannot be 0,Дело № не может быть 0
 Cash,Наличные
-Cash In Hand,Наличность кассы
+Cash In Hand,Наличность кассовая
 Cash Voucher,Кассовый чек
 Cash or Bank Account is mandatory for making payment entry,Наличными или банковский счет является обязательным для внесения записи платежей
-Cash/Bank Account, Наличные / Банковский счет
+Cash/Bank Account,Счет Наличный / Банк
 Casual Leave,Повседневная Оставить
-Cell Number,Количество звонков
+Cell Number,Количество сотовых
 Change UOM for an Item.,Изменение UOM для элемента.
 Change the starting / current sequence number of an existing series.,Изменение начального / текущий порядковый номер существующей серии.
 Channel Partner,Channel ДУrtner
@@ -502,17 +501,17 @@ Cheque Date,Чек Дата
 Cheque Number,Чек Количество
 Child account exists for this account. You can not delete this account.,Детский учетная запись существует для этой учетной записи. Вы не можете удалить этот аккаунт.
 City,Город
-City/Town,Город / поселок
+City/Town,Город /
 Claim Amount,Сумма претензии
 Claims for company expense.,Претензии по счет компании.
 Class / Percentage,Класс / в процентах
 Classic,Классические
-Clear Table,Очистить таблицу
+Clear Table,Ясно Таблица
 Clearance Date,Клиренс Дата
 Clearance Date not mentioned,Клиренс Дата не упоминается
 Clearance date cannot be before check date in row {0},Дата просвет не может быть до даты регистрации в строке {0}
 Click on 'Make Sales Invoice' button to create a new Sales Invoice.,"Нажмите на кнопку ""Создать Расходная накладная», чтобы создать новый счет-фактуру."
-Click on a link to get options to expand get options ,Click on a link to get options to expand get options 
+Click on a link to get options to expand get options ,
 Client,Клиент
 Close Balance Sheet and book Profit or Loss.,Закрыть баланс и книга прибыли или убытка.
 Closed,Закрыт
@@ -642,8 +641,8 @@ Created By,Созданный
 Creates salary slip for above mentioned criteria.,Создает ведомость расчета зарплаты за вышеуказанные критерии.
 Creation Date,Дата создания
 Creation Document No,Создание документа Нет
-Creation Document Type,Создание типа документа
-Creation Time,Время создания
+Creation Document Type,Тип документа Создание
+Creation Time,Времени создания
 Credentials,Сведения о профессиональной квалификации
 Credit,Кредит
 Credit Amt,Кредитная Amt
@@ -752,8 +751,8 @@ Default Bank / Cash account will be automatically updated in POS Invoice when th
 Default Bank Account,По умолчанию Банковский счет
 Default Buying Cost Center,По умолчанию Покупка МВЗ
 Default Buying Price List,По умолчанию Покупка Прайс-лист
-Default Cash Account,Расчетный счет по умолчанию
-Default Company,Компания по умолчанию
+Default Cash Account,По умолчанию денежного счета
+Default Company,По умолчанию компании
 Default Currency,Базовая валюта
 Default Customer Group,По умолчанию Группа клиентов
 Default Expense Account,По умолчанию расходов счета
@@ -788,7 +787,7 @@ Delivered Items To Be Billed,Поставленные товары быть вы
 Delivered Qty,Поставляется Кол-во
 Delivered Serial No {0} cannot be deleted,Поставляется Серийный номер {0} не может быть удален
 Delivery Date,Дата поставки
-Delivery Details,Подробности доставки
+Delivery Details,План поставки
 Delivery Document No,Доставка документов Нет
 Delivery Document Type,Тип доставки документов
 Delivery Note,· Отметки о доставке
@@ -802,7 +801,7 @@ Delivery Note {0} is not submitted,Доставка Примечание {0} н�
 Delivery Note {0} must not be submitted,Доставка Примечание {0} не должны быть представлены
 Delivery Notes {0} must be cancelled before cancelling this Sales Order,Примечания Доставка {0} должно быть отменено до отмены этого заказ клиента
 Delivery Status,Статус доставки
-Delivery Time,Время доставки
+Delivery Time,Срок поставки
 Delivery To,Доставка Для
 Department,Отдел
 Department Stores,Универмаги
@@ -813,7 +812,7 @@ Description HTML,Описание HTML
 Designation,Назначение
 Designer,Дизайнер
 Detailed Breakup of the totals,Подробное Распад итогам
-Details,Подробности
+Details,Детали
 Difference (Dr - Cr),Отличия (д-р - Cr)
 Difference Account,Счет разницы
 "Difference Account must be a 'Liability' type account, since this Stock Reconciliation is an Opening Entry","Разница счета должна быть учетной записью типа ""Ответственность"", так как это со Примирение Открытие Вступление"
@@ -842,14 +841,14 @@ Distributor,Дистрибьютор
 Divorced,Разведенный
 Do Not Contact,Не обращайтесь
 Do not show any symbol like $ etc next to currencies.,Не показывать любой символ вроде $ и т.д. рядом с валютами.
-Do really want to unstop production order: ,Do really want to unstop production order: 
-Do you really want to STOP ,Do you really want to STOP 
+Do really want to unstop production order: ,
+Do you really want to STOP ,
 Do you really want to STOP this Material Request?,"Вы действительно хотите, чтобы остановить эту запросу материал?"
 Do you really want to Submit all Salary Slip for month {0} and year {1},"Вы действительно хотите, чтобы представить все Зарплата Слип для месяца {0} и год {1}"
-Do you really want to UNSTOP ,Do you really want to UNSTOP 
+Do you really want to UNSTOP ,
 Do you really want to UNSTOP this Material Request?,"Вы действительно хотите, чтобы Unstop этот материал запрос?"
-Do you really want to stop production order: ,Do you really want to stop production order: 
-Doc Name,Имя документа
+Do you really want to stop production order: ,
+Doc Name,Док Имя
 Doc Type,Тип документа
 Document Description,Документ Описание
 Document Type,Тип документа
@@ -859,15 +858,15 @@ Don't send Employee Birthday Reminders,Не отправляйте Employee ро
 Download Materials Required,Скачать Необходимые материалы
 Download Reconcilation Data,Скачать приведению данных
 Download Template,Скачать шаблон
-Download a report containing all raw materials with their latest inventory status,Скачать отчет содержащий все материал со статусом  последней инвентаризации
+Download a report containing all raw materials with their latest inventory status,"Скачать доклад, содержащий все сырье с их последней инвентаризации статус"
 "Download the Template, fill appropriate data and attach the modified file.","Скачать шаблон, заполнить соответствующие данные и приложить измененный файл."
 "Download the Template, fill appropriate data and attach the modified file.All dates and employee combination in the selected period will come in the template, with existing attendance records","Скачать шаблон, заполнить соответствующие данные и приложить измененный файл. Все даты и сочетание работник в выбранном периоде придет в шаблоне, с существующими рекорды посещаемости"
-Draft,Черновик
+Draft,Новый
 Dropbox,Dropbox
 Dropbox Access Allowed,Dropbox доступ разрешен
 Dropbox Access Key,Dropbox Ключ доступа
-Dropbox Access Secret,Dropbox Секретный ключ
-Due Date,Дата выполнения
+Dropbox Access Secret,Dropbox Доступ Секрет
+Due Date,Дата исполнения
 Due Date cannot be after {0},Впритык не может быть после {0}
 Due Date cannot be before Posting Date,"Впритык не может быть, прежде чем отправлять Дата"
 Duplicate Entry. Please check Authorization Rule {0},"Копия записи. Пожалуйста, проверьте Авторизация Правило {0}"
@@ -900,7 +899,7 @@ Electronics,Электроника
 Email,E-mail
 Email Digest,E-mail Дайджест
 Email Digest Settings,Email Дайджест Настройки
-Email Digest: ,Email Digest: 
+Email Digest: ,
 Email Id,E-mail Id
 "Email Id where a job applicant will email e.g. ""jobs@example.com""","E-mail Id, где соискатель вышлем например ""jobs@example.com"""
 Email Notifications,Уведомления электронной почты
@@ -928,7 +927,7 @@ Employee Settings,Настройки работникам
 Employee Type,Сотрудник Тип
 "Employee designation (e.g. CEO, Director etc.).","Сотрудник обозначение (например, генеральный директор, директор и т.д.)."
 Employee master.,Мастер сотрудников.
-Employee record is created using selected field. ,Employee record is created using selected field. 
+Employee record is created using selected field. ,
 Employee records.,Сотрудник записей.
 Employee relieved on {0} must be set as 'Left',"Сотрудник освобожден от {0} должен быть установлен как ""левые"""
 Employee {0} has already applied for {1} between {2} and {3},Сотрудник {0} уже подало заявку на {1} между {2} и {3}
@@ -960,11 +959,11 @@ Enter url parameter for receiver nos,Введите параметр URL для 
 Entertainment & Leisure,Развлечения и досуг
 Entertainment Expenses,Представительские расходы
 Entries,Записи
-Entries against ,Entries against 
+Entries against ,
 Entries are not allowed against this Fiscal Year if the year is closed.,"Записи не допускаются против этого финансовый год, если год закрыт."
 Equity,Ценные бумаги
 Error: {0} > {1},Ошибка: {0}> {1}
-Estimated Material Cost,Примерная стоимость материалов
+Estimated Material Cost,Расчетное Материал Стоимость
 "Even if there are multiple Pricing Rules with highest priority, then following internal priorities are applied:","Даже если есть несколько правил ценообразования с наивысшим приоритетом, то следующие внутренние приоритеты применяются:"
 Everyone can read,Каждый может читать
 "Example: ABCD.#####If series is set and Serial No is not mentioned in transactions, then automatic serial number will be created based on this series. If you always want to explicitly mention Serial Nos for this item. leave this blank.",". Пример: ABCD # # # # #  Если серии установлен и Серийный номер не упоминается в сделках, то автоматическая серийный номер будет создана на основе этой серии. Если вы всегда хотите явно упомянуть серийный Нос для этого элемента. оставьте поле пустым."
@@ -1025,7 +1024,7 @@ Exports,! Экспорт
 External,Внешний  GPS с RS232
 Extract Emails,Извлечь почты
 FCFS Rate,FCFS Оценить
-Failed: ,Failed: 
+Failed: ,
 Family Background,Семья Фон
 Fax,Факс:
 Features Setup,Особенности установки
@@ -1042,8 +1041,8 @@ Filter based on item,Фильтр на основе пункта
 Financial / accounting year.,Финансовый / отчетного года.
 Financial Analytics,Финансовая аналитика
 Financial Services,Финансовые услуги
-Financial Year End Date,Окончание финансового периода 
-Financial Year Start Date,Начало финансового периода
+Financial Year End Date,Финансовый год Дата окончания
+Financial Year Start Date,Финансовый год Дата начала
 Finished Goods,Готовая продукция
 First Name,Имя
 First Responded On,Впервые Ответил на
@@ -1067,7 +1066,7 @@ For Reference Only.,Для справки.
 For Sales Invoice,Для продаж счета-фактуры
 For Server Side Print Formats,Для стороне сервера форматов печати
 For Supplier,Для поставщиков
-For Warehouse,Для Склада
+For Warehouse,Для Склад
 For Warehouse is required before Submit,Для требуется Склад перед Отправить
 "For e.g. 2012, 2012-13","Для, например 2012, 2012-13"
 For reference,Для справки
@@ -1084,7 +1083,7 @@ From Bill of Materials,Из спецификации материалов
 From Company,От компании
 From Currency,Из валюты
 From Currency and To Currency cannot be same,"Из валюты и В валюту не может быть таким же,"
-From Customer,От клиента
+From Customer,От клиентов
 From Customer Issue,Из выпуска Пользовательское
 From Date,С Даты
 From Date cannot be greater than To Date,"С даты не может быть больше, чем к дате"
@@ -1162,8 +1161,8 @@ Grand Total,Общий итог
 Grand Total (Company Currency),Общий итог (Компания Валюта)
 "Grid ""","Сетка """
 Grocery,Продуктовый
-Gross Margin %,Валовая маржа %
-Gross Margin Value,Значение валовой маржи
+Gross Margin %,Валовая маржа%
+Gross Margin Value,Валовая маржа Значение
 Gross Pay,Зарплата до вычетов
 Gross Pay + Arrear Amount +Encashment Amount - Total Deduction,Валовой Платное + просроченной задолженности суммы + Инкассация Сумма - Всего Вычет
 Gross Profit,Валовая прибыль
@@ -1197,7 +1196,7 @@ Help HTML,Помощь HTML
 "Here you can maintain family details like name and occupation of parent, spouse and children","Здесь Вы можете сохранить семейные подробности, как имя и оккупации родитель, супруг и детей"
 "Here you can maintain height, weight, allergies, medical concerns etc","Здесь вы можете поддерживать рост, вес, аллергии, медицинские проблемы и т.д."
 Hide Currency Symbol,Скрыть Символа Валюты
-High,Высокий
+High,Высокая
 History In Company,История В компании
 Hold,Удержание
 Holiday,Выходной
@@ -1215,7 +1214,7 @@ Hours,Часов
 How Pricing Rule is applied?,Как Ценообразование Правило применяется?
 How frequently?,Как часто?
 "How should this currency be formatted? If not set, will use system defaults","Как это должно валюта быть отформатирован? Если не установлен, будет использовать системные значения по умолчанию"
-Human Resources,Человеческие ресурсы
+Human Resources,Работа с персоналом
 Identification of the package for the delivery (for print),Идентификация пакета на поставку (для печати)
 If Income or Expense,Если доходов или расходов
 If Monthly Budget Exceeded,Если Месячный бюджет Превышен
@@ -1246,16 +1245,16 @@ If you have Sales Team and Sale Partners (Channel Partners)  they can be tagged 
 If you involve in manufacturing activity. Enables Item 'Is Manufactured',Если вы привлечь в производственной деятельности. Включает элемент 'производится'
 Ignore,Игнорировать
 Ignore Pricing Rule,Игнорировать Цены Правило
-Ignored: ,Ignored: 
+Ignored: ,
 Image,Изображение
 Image View,Просмотр изображения
 Implementation Partner,Реализация Партнер
 Import Attendance,Импорт Посещаемость
-Import Failed!,Ошибка при импортировании!
-Import Log,Лог импорта
-Import Successful!,Успешно импортированно!
+Import Failed!,Импорт удалось!
+Import Log,Импорт Вход
+Import Successful!,Импорт успешным!
 Imports,Импорт
-In Hours,В час
+In Hours,В часы
 In Process,В процессе
 In Qty,В Кол-во
 In Value,В поле Значение
@@ -1274,7 +1273,7 @@ Include Reconciled Entries,Включите примириться Записи
 Include holidays in Total no. of Working Days,Включите праздники в общей сложности не. рабочих дней
 Income,Доход
 Income / Expense,Доходы / расходы
-Income Account,Счет Доходов
+Income Account,Счет Доходы
 Income Booked,Доход Заказанный
 Income Tax,Подоходный налог
 Income Year to Date,Доход С начала года
@@ -1299,7 +1298,7 @@ Installation Note,Установка Примечание
 Installation Note Item,Установка Примечание Пункт
 Installation Note {0} has already been submitted,Установка Примечание {0} уже представлен
 Installation Status,Состояние установки
-Installation Time,Время установки
+Installation Time,Время монтажа
 Installation date cannot be before delivery date for Item {0},Дата установки не может быть до даты доставки для Пункт {0}
 Installation record for a Serial No.,Установка рекорд для серийный номер
 Installed Qty,Установленная Кол-во
@@ -1307,15 +1306,15 @@ Instructions,Инструкции
 Integrate incoming support emails to Support Ticket,Интеграция входящих поддержки письма на техподдержки
 Interested,Заинтересованный
 Intern,Стажер
-Internal,Внутренний
+Internal,Внутренний GPS без антенны или с внешней антенной
 Internet Publishing,Интернет издания
 Introduction,Введение
-Invalid Barcode,Неверный штрихкод
-Invalid Barcode or Serial No,Неверный штрихкод или Серийный номер
-Invalid Mail Server. Please rectify and try again.,"Неверный почтовый сервер. Пожалуйста, исправьте и попробуйте еще раз."
+Invalid Barcode,Неверный код
+Invalid Barcode or Serial No,Неверный код или Серийный номер
+Invalid Mail Server. Please rectify and try again.,"Неверный Сервер Почта. Пожалуйста, исправить и попробовать еще раз."
 Invalid Master Name,Неверный Мастер Имя
 Invalid User Name or Support Password. Please rectify and try again.,"Неверное имя пользователя или поддержки Пароль. Пожалуйста, исправить и попробовать еще раз."
-Invalid quantity specified for item {0}. Quantity should be greater than 0.,"Неверное количество, указанное для элемента {0}. Количество должно быть больше 0."
+Invalid quantity specified for item {0}. Quantity should be greater than 0.,"Неверный количество, указанное для элемента {0}. Количество должно быть больше 0."
 Inventory,Инвентаризация
 Inventory & Support,Инвентаризация и поддержка
 Investment Banking,Инвестиционно-банковская деятельность
@@ -1327,7 +1326,7 @@ Invoice Number,Номер накладной
 Invoice Period From,Счет Период С
 Invoice Period From and Invoice Period To dates mandatory for recurring invoice,Счет Период С и счет-фактура Период до даты обязательных для повторяющихся счет
 Invoice Period To,Счет Период до
-Invoice Type,Тип счета
+Invoice Type,Счет Тип
 Invoice/Journal Voucher Details,Счет / Журнал Подробности Ваучер
 Invoiced Amount (Exculsive Tax),Сумма по счетам (Exculsive стоимость)
 Is Active,Активен
@@ -1550,7 +1549,7 @@ Logo,Логотип
 Logo and Letter Heads,Логотип и бланки
 Lost,Поражений
 Lost Reason,Забыли Причина
-Low,Низкий
+Low,Низкая
 Lower Income,Нижняя Доход
 MTN Details,MTN Подробнее
 Main,Основные
@@ -1575,7 +1574,7 @@ Maintenance Visit Purpose,Техническое обслуживание Пос
 Maintenance Visit {0} must be cancelled before cancelling this Sales Order,Техническое обслуживание Посетить {0} должно быть отменено до отмены этого заказ клиента
 Maintenance start date can not be before delivery date for Serial No {0},Техническое обслуживание дата не может быть до даты доставки для Serial No {0}
 Major/Optional Subjects,Основные / факультативных предметов
-Make ,Создать
+Make ,
 Make Accounting Entry For Every Stock Movement,Сделать учета запись для каждого фондовой Движения
 Make Bank Voucher,Сделать банк ваучер
 Make Credit Note,Сделать кредит-нота
@@ -1584,7 +1583,7 @@ Make Delivery,Произвести поставку
 Make Difference Entry,Сделать Разница запись
 Make Excise Invoice,Сделать акцизного счет-фактура
 Make Installation Note,Сделать Установка Примечание
-Make Invoice,Создать счет-фактуру
+Make Invoice,Сделать Счет
 Make Maint. Schedule,Сделать Maint. Расписание
 Make Maint. Visit,Сделать Maint. Посетите нас по адресу
 Make Maintenance Visit,Сделать ОБСЛУЖИВАНИЕ Посетите
@@ -1600,7 +1599,7 @@ Make Sales Invoice,Сделать Расходная накладная
 Make Sales Order,Сделать заказ клиента
 Make Supplier Quotation,Сделать Поставщик цитаты
 Make Time Log Batch,Найдите время Войдите Batch
-Male,Мужчина
+Male,Муж
 Manage Customer Group Tree.,Управление групповой клиентов дерево.
 Manage Sales Partners.,Управление партнеры по сбыту.
 Manage Sales Person Tree.,Управление менеджера по продажам дерево.
@@ -1629,7 +1628,7 @@ Mass Mailing,Рассылок
 Master Name,Мастер Имя
 Master Name is mandatory if account type is Warehouse,"Мастер Имя является обязательным, если тип счета Склад"
 Master Type,Мастер Тип
-Masters,Организация
+Masters,Эффективно используем APM в высшей лиге
 Match non-linked Invoices and Payments.,"Подходим, не связанных Счета и платежи."
 Material Issue,Материал выпуск
 Material Receipt,Материал Поступление
@@ -1659,31 +1658,31 @@ Maximum allowed credit is {0} days after posting date,Максимально д�
 Maximum {0} rows allowed,Максимальные {0} строк разрешено
 Maxiumm discount for Item {0} is {1}%,Maxiumm скидка на Пункт {0} {1}%
 Medical,Медицинский
-Medium,Средний
+Medium,Средние булки
 "Merging is only possible if following properties are same in both records. Group or Ledger, Root Type, Company","Слияние возможно только при следующие свойства одинаковы в обоих записей. Группа или Леджер, корень Тип, Компания"
 Message,Сообщение
-Message Parameter,Параметры сообщения
+Message Parameter,Сообщение Параметр
 Message Sent,Сообщение отправлено
-Message updated,Сообщение обновлено
+Message updated,Сообщение обновляется
 Messages,Сообщения
 Messages greater than 160 characters will be split into multiple messages,"Сообщения больше, чем 160 символов будет разделен на несколько сообщений"
-Middle Income,Средний доход
-Milestone,Этап
-Milestone Date,Дата реализации этапа
+Middle Income,Средним уровнем доходов
+Milestone,Веха
+Milestone Date,Дата реализации
 Milestones,Основные этапы
-Milestones will be added as Events in the Calendar,Этапы проекта будут добавлены в качестве событий календаря
+Milestones will be added as Events in the Calendar,Вехи будет добавлен в качестве событий в календаре
 Min Order Qty,Минимальный заказ Кол-во
 Min Qty,Мин Кол-во
-Min Qty can not be greater than Max Qty,"Мин Кол-во не может быть больше, чем максимальное Кол-во"
+Min Qty can not be greater than Max Qty,"Мин Кол-во не может быть больше, чем Max Кол-во"
 Minimum Amount,Минимальная сумма
 Minimum Order Qty,Минимальное количество заказа
-Minute,Минута
+Minute,Минут
 Misc Details,Разное Подробности
 Miscellaneous Expenses,Прочие расходы
 Miscelleneous,Miscelleneous
-Mobile No,Мобильный номер
+Mobile No,Мобильная Нет
 Mobile No.,Мобильный номер
-Mode of Payment,Способ оплаты
+Mode of Payment,Способ платежа
 Modern,"модные,"
 Monday,Понедельник
 Month,Mесяц
@@ -1709,7 +1708,7 @@ Name and Employee ID,Имя и Код сотрудника
 "Name of new Account. Note: Please don't create accounts for Customers and Suppliers, they are created automatically from the Customer and Supplier master","Имя нового счета. Примечание: Пожалуйста, не создавать учетные записи для клиентов и поставщиков, они создаются автоматически от Заказчика и поставщика оригиналов"
 Name of person or organization that this address belongs to.,"Имя лица или организации, что этот адрес принадлежит."
 Name of the Budget Distribution,Название Распределение бюджета
-Naming Series,Наименование серии
+Naming Series,Именование Series
 Negative Quantity is not allowed,Отрицательный Количество не допускается
 Negative Stock Error ({6}) for Item {0} in Warehouse {1} on {2} {3} in {4} {5},Отрицательный Ошибка со ({6}) по пункту {0} в Склад {1} на {2} {3} в {4} {5}
 Negative Valuation Rate is not allowed,Отрицательный Оценка курс не допускается
@@ -1724,7 +1723,7 @@ Net Weight UOM,Вес нетто единица измерения
 Net Weight of each Item,Вес нетто каждого пункта
 Net pay cannot be negative,Чистая зарплата не может быть отрицательным
 Never,Никогда
-New ,Новый
+New ,
 New Account,Новая учетная запись
 New Account Name,Новый Имя счета
 New BOM,Новый BOM
@@ -1755,11 +1754,11 @@ New UOM must NOT be of type Whole Number,Новый UOM НЕ должен име
 New Workplace,Новый Место работы
 Newsletter,Рассылка новостей
 Newsletter Content,Рассылка Содержимое
-Newsletter Status, Статус рассылки
+Newsletter Status,Рассылка Статус
 Newsletter has already been sent,Информационный бюллетень уже был отправлен
 "Newsletters to contacts, leads.","Бюллетени для контактов, приводит."
 Newspaper Publishers,Газетных издателей
-Next,Следующий
+Next,Следующая
 Next Contact By,Следующая Контактные По
 Next Contact Date,Следующая контакты
 Next Date,Следующая Дата
@@ -1790,39 +1789,39 @@ No permission,Нет доступа
 No record found,Не запись не найдено
 No records found in the Invoice table,Не записи не найдено в таблице счетов
 No records found in the Payment table,Не записи не найдено в таблице оплаты
-No salary slip found for month: ,No salary slip found for month: 
-Non Profit,Не коммерческое
+No salary slip found for month: ,
+Non Profit,Разное
 Nos,кол-во
-Not Active,Не активно
+Not Active,Не активность
 Not Applicable,Не применяется
 Not Available,Не доступен
 Not Billed,Не Объявленный
-Not Delivered,Не доставлен
+Not Delivered,Не Поставляются
 Not Set,Не указано
 Not allowed to update stock transactions older than {0},"Не допускается, чтобы обновить биржевые операции старше {0}"
 Not authorized to edit frozen Account {0},Не разрешается редактировать замороженный счет {0}
 Not authroized since {0} exceeds limits,Не Authroized с {0} превышает пределы
 Not permitted,Не допускается
-Note,Заметка
-Note User,Примечание пользователя
+Note,Заметье
+Note User,Примечание Пользователь
 "Note: Backups and files are not deleted from Dropbox, you will have to delete them manually.","Примечание: Резервные копии и файлы не удаляются из Dropbox, вам придется удалить их вручную."
 "Note: Backups and files are not deleted from Google Drive, you will have to delete them manually.","Примечание: Резервные копии и файлы не удаляются из Google Drive, вам придется удалить их вручную."
 Note: Due Date exceeds the allowed credit days by {0} day(s),Примечание: В связи Дата превышает разрешенный кредит дня на {0} день (дни)
-Note: Email will not be sent to disabled users,Примечание: E-mail не будет отправлен отключенному пользователю
-Note: Item {0} entered multiple times,Примечание: Пункт {0} имеет несколько вхождений
+Note: Email will not be sent to disabled users,Примечание: E-mail не будет отправлен пользователей с ограниченными возможностями
+Note: Item {0} entered multiple times,Примечание: Пункт {0} вошли несколько раз
 Note: Payment Entry will not be created since 'Cash or Bank Account' was not specified,"Примечание: Оплата Вступление не будет создана, так как ""Наличные или Банковский счет"" не был указан"
 Note: System will not check over-delivery and over-booking for Item {0} as quantity or amount is 0,Примечание: Система не будет проверять по-доставки и избыточного бронирования по пункту {0} как количестве 0
 Note: There is not enough leave balance for Leave Type {0},Примечание: Существует не хватает отпуск баланс для отпуске Тип {0}
 Note: This Cost Center is a Group. Cannot make accounting entries against groups.,Примечание: Эта МВЗ является Группа. Невозможно сделать бухгалтерские проводки против групп.
 Note: {0},Примечание: {0}
-Notes,Заметки
-Notes:,Заметки:
+Notes,Примечания
+Notes:,Примечание:
 Nothing to request,Ничего просить
 Notice (days),Уведомление (дней)
-Notification Control,Контроль Уведомлений
-Notification Email Address,E-mail адрес для уведомлений
+Notification Control,Контроль Уведомление
+Notification Email Address,Уведомление E-mail адрес
 Notify by Email on creation of automatic Material Request,Сообщите по электронной почте по созданию автоматической запрос материалов
-Number Format,Числовой\валютный формат
+Number Format,Number Формат
 Offer Date,Предложение Дата
 Office,Офис
 Office Equipments,Оборудование офиса
@@ -1837,9 +1836,9 @@ Only Leave Applications with status 'Approved' can be submitted,"Только О
 "Only Serial Nos with status ""Available"" can be delivered.","Только Серийный Нос со статусом ""В наличии"" может быть доставлено."
 Only leaf nodes are allowed in transaction,Только листовые узлы допускаются в сделке
 Only the selected Leave Approver can submit this Leave Application,Только выбранный Оставить утверждающий мог представить этот Оставить заявку
-Open,Открыт
+Open,Открыть
 Open Production Orders,Открыть Производственные заказы
-Open Tickets,Открытые заявку
+Open Tickets,Открытые Билеты
 Opening (Cr),Открытие (Cr)
 Opening (Dr),Открытие (д-р)
 Opening Date,Открытие Дата
@@ -1966,7 +1965,7 @@ Payment cannot be made for empty cart,Оплата не может быть сд
 Payment of salary for the month {0} and year {1},Выплата заработной платы за месяц {0} и год {1}
 Payments,Оплата
 Payments Made,"Выплаты, производимые"
-Payments Received,Полученные платежи
+Payments Received,"Платежи, полученные"
 Payments made during the digest period,Платежи в период дайджест
 Payments received during the digest period,"Платежи, полученные в период дайджест"
 Payroll Settings,Настройки по заработной плате
@@ -1994,7 +1993,7 @@ Personal Email,Личная E-mail
 Pharmaceutical,Фармацевтический
 Pharmaceuticals,Фармацевтика
 Phone,Телефон
-Phone No,Номер телефона
+Phone No,Телефон Нет
 Piecework,Сдельная работа
 Pincode,Pincode
 Place of Issue,Место выдачи
@@ -2177,17 +2176,17 @@ Products,Продукты
 Professional Tax,Профессиональный Налоговый
 Profit and Loss,Прибыль и убытки
 Profit and Loss Statement,Счет прибылей и убытков
-Project,Проект
-Project Costing,Стоимость проекта
-Project Details,Подробности проекта
+Project,Адаптация
+Project Costing,Проект стоимостью
+Project Details,Детали проекта
 Project Manager,Руководитель проекта
-Project Milestone,Этап проекта
-Project Milestones,Этапы проекта
+Project Milestone,Проект Milestone
+Project Milestones,Основные этапы проекта
 Project Name,Название проекта
 Project Start Date,Дата начала проекта
 Project Type,Тип проекта
-Project Value,Значимость проекта
-Project activity / task.,Проектная деятельность / задачи.
+Project Value,Значение проекта
+Project activity / task.,Проектная деятельность / задачей.
 Project master.,Мастер проекта.
 Project will get saved and will be searchable with project name given,Проект будет спастись и будут доступны для поиска с именем проекта дается
 Project wise Stock Tracking,Проект мудрый слежения со
@@ -2200,7 +2199,7 @@ Prompt for Email on Submission of,Запрашивать Email по подаче
 Proposal Writing,Предложение Написание
 Provide email id registered in company,Обеспечить электронный идентификатор зарегистрирован в компании
 Provisional Profit / Loss (Credit),Предварительная прибыль / убыток (Кредит)
-Public,Публично
+Public,Публичный
 Published on website at: {0},Опубликовано на веб-сайте по адресу: {0}
 Publishing,Публикация
 Pull sales orders (pending to deliver) based on the above criteria,"Потяните заказы на продажу (в ожидании, чтобы доставить) на основе вышеуказанных критериев"
@@ -2449,8 +2448,8 @@ Root cannot have a parent cost center,Корневая не может имет�
 Rounded Off,Округляется
 Rounded Total,Округлые Всего
 Rounded Total (Company Currency),Округлые Всего (Компания Валюта)
-Row # ,Row # 
-Row # {0}: ,Row # {0}: 
+Row # ,
+Row # {0}: ,
 Row #{0}: Ordered qty can not less than item's minimum order qty (defined in item master).,Ряд # {0}: Заказал Количество может не менее минимального Кол порядка элемента (определяется в мастер пункт).
 Row #{0}: Please specify Serial No for Item {1},"Ряд # {0}: Пожалуйста, сформулируйте Серийный номер для Пункт {1}"
 Row {0}: Account does not match with \						Purchase Invoice Credit To account,Ряд {0}: Счет не соответствует \ Покупка Счет в плюс на счет
@@ -2543,17 +2542,17 @@ Sales Returned,Продажи Вернулся
 Sales Taxes and Charges,Продажи Налоги и сборы
 Sales Taxes and Charges Master,Продажи Налоги и сборы Мастер
 Sales Team,Отдел продаж
-Sales Team Details,Описание отдела продаж
+Sales Team Details,Отдел продаж Подробнее
 Sales Team1,Команда1 продаж
 Sales and Purchase,Купли-продажи
 Sales campaigns.,Кампании по продажам.
-Salutation,Обращение
+Salutation,Заключение
 Sample Size,Размер выборки
 Sanctioned Amount,Санкционированный Количество
 Saturday,Суббота
 Schedule,Расписание
-Schedule Date,Дата планирования
-Schedule Details,Подробности расписания
+Schedule Date,Расписание Дата
+Schedule Details,Расписание Подробнее
 Scheduled,Запланированно
 Scheduled Date,Запланированная дата
 Scheduled to send to {0},Планируется отправить {0}
@@ -2565,7 +2564,7 @@ Score Earned,Оценка Заработано
 Score must be less than or equal to 5,Оценка должна быть меньше или равна 5
 Scrap %,Лом%
 Seasonality for setting budgets.,Сезонность для установления бюджетов.
-Secretary,Секретарь
+Secretary,СЕКРЕТАРЬ
 Secured Loans,Обеспеченные кредиты
 Securities & Commodity Exchanges,Ценные бумаги и товарных бирж
 Securities and Deposits,Ценные бумаги и депозиты
@@ -2579,7 +2578,7 @@ Select Brand...,Выберите бренд ...
 Select Budget Distribution to unevenly distribute targets across months.,Выберите бюджета Распределение чтобы неравномерно распределить цели через месяцев.
 "Select Budget Distribution, if you want to track based on seasonality.","Выберите бюджета Distribution, если вы хотите, чтобы отслеживать на основе сезонности."
 Select Company...,Выберите компанию ...
-Select DocType,Выберите тип документа
+Select DocType,Выберите DocType
 Select Fiscal Year...,Выберите финансовый год ...
 Select Items,Выберите товары
 Select Project...,Выберите проект ...
@@ -2587,8 +2586,8 @@ Select Purchase Receipts,Выберите Покупка расписок
 Select Sales Orders,Выберите заказы на продажу
 Select Sales Orders from which you want to create Production Orders.,Выберите Заказы из которого вы хотите создать производственных заказов.
 Select Time Logs and Submit to create a new Sales Invoice.,Выберите Журналы время и предоставить для создания нового счета-фактуры.
-Select Transaction,Выберите операцию
-Select Warehouse...,Выберите склад...
+Select Transaction,Выберите сделка
+Select Warehouse...,Выберите Warehouse ...
 Select Your Language,Выбор языка
 Select account head of the bank where cheque was deposited.,"Выберите учетную запись глава банка, в котором проверка была размещена."
 Select company name first.,Выберите название компании в первую очередь.
@@ -2609,7 +2608,7 @@ Selling Settings,Продажа Настройки
 "Selling must be checked, if Applicable For is selected as {0}","Продажа должна быть проверена, если выбран Применимо для как {0}"
 Send,Отправить
 Send Autoreply,Отправить автоответчике
-Send Email,Отправить e-mail
+Send Email,Отправить на e-mail
 Send From,Отправить От
 Send Notifications To,Отправлять уведомления
 Send Now,Отправить Сейчас
@@ -2622,10 +2621,10 @@ Sender Name,Имя отправителя
 Sent On,Направлено на
 Separate production order will be created for each finished good item.,Отдельный производственный заказ будет создан для каждого готового хорошего пункта.
 Serial No,Серийный номер
-Serial No / Batch,Серийный номер / Партия
-Serial No Details,Серийный номер подробнее
+Serial No / Batch,Серийный номер / Пакетный
+Serial No Details,Серийный Нет Информация
 Serial No Service Contract Expiry,Серийный номер Сервисный контракт Срок
-Serial No Status,Серийный номер статус
+Serial No Status,не Серийный Нет Положение
 Serial No Warranty Expiry,не Серийный Нет Гарантия Срок
 Serial No is mandatory for Item {0},Серийный номер является обязательным для п. {0}
 Serial No {0} created,Серийный номер {0} создан
@@ -2633,7 +2632,7 @@ Serial No {0} does not belong to Delivery Note {1},Серийный номер {
 Serial No {0} does not belong to Item {1},Серийный номер {0} не принадлежит Пункт {1}
 Serial No {0} does not belong to Warehouse {1},Серийный номер {0} не принадлежит Склад {1}
 Serial No {0} does not exist,Серийный номер {0} не существует
-Serial No {0} has already been received,Серийный номер {0} уже существует
+Serial No {0} has already been received,Серийный номер {0} уже получил
 Serial No {0} is under maintenance contract upto {1},Серийный номер {0} находится под контрактом на техническое обслуживание ДО {1}
 Serial No {0} is under warranty upto {1},Серийный номер {0} находится на гарантии ДО {1}
 Serial No {0} not in stock,Серийный номер {0} не в наличии
@@ -2651,7 +2650,7 @@ Series is mandatory,Серия является обязательным
 Series {0} already used in {1},Серия {0} уже используется в {1}
 Service,Услуга
 Service Address,Адрес сервисного центра
-Service Tax,Налоговая служба
+Service Tax,Налоговой службы
 Services,Услуги
 Set,Задать
 "Set Default Values like Company, Currency, Current Fiscal Year, etc.","Установить значения по умолчанию, как Болгарии, Валюта, текущий финансовый год и т.д."
@@ -2667,7 +2666,7 @@ Setting up...,Настройка ...
 Settings,Настройки
 Settings for HR Module,Настройки для модуля HR
 "Settings to extract Job Applicants from a mailbox e.g. ""jobs@example.com""","Настройки для извлечения Работа Кандидаты от почтового ящика, например ""jobs@example.com"""
-Setup,Настройки
+Setup,Настройка
 Setup Already Complete!!,Настройка Уже завершена!!
 Setup Complete,Завершение установки
 Setup SMS gateway settings,Настройки Настройка SMS Gateway
@@ -2677,7 +2676,7 @@ Setup incoming server for jobs email id. (e.g. jobs@example.com),Настрой�
 Setup incoming server for sales email id. (e.g. sales@example.com),Настройка сервера входящей для продажи электронный идентификатор. (Например sales@example.com)
 Setup incoming server for support email id. (e.g. support@example.com),Настройка сервера входящей для поддержки электронный идентификатор. (Например support@example.com)
 Share,Поделиться
-Share With,Поделиться с
+Share With,Поделись с
 Shareholders Funds,Акционеры фонды
 Shipments to customers.,Поставки клиентам.
 Shipping,Доставка
@@ -2693,7 +2692,7 @@ Shopping Cart,Корзина
 Short biography for website and other publications.,Краткая биография для веб-сайта и других изданий.
 "Show ""In Stock"" or ""Not in Stock"" based on stock available in this warehouse.","Показать ""На складе"" или ""нет на складе"", основанный на складе имеющейся в этом складе."
 "Show / Hide features like Serial Nos, POS etc.","Показать / скрыть функции, такие как последовательный Нос, POS и т.д."
-Show In Website,Показать на сайте
+Show In Website,Показать В веб-сайте
 Show a slideshow at the top of the page,Показ слайдов в верхней части страницы
 Show in Website,Показать в веб-сайт
 Show rows with zero values,Показать строки с нулевыми значениями
@@ -2701,7 +2700,7 @@ Show this slideshow at the top of the page,Показать этот слайд-
 Sick Leave,Отпуск по болезни
 Signature,Подпись
 Signature to be appended at the end of every email,"Подпись, которая будет добавлена в конце каждого письма"
-Single,Единственный
+Single,1
 Single unit of an Item.,Одно устройство элемента.
 Sit tight while your system is being setup. This may take a few moments.,"Сиди, пока система в настоящее время установки. Это может занять несколько секунд."
 Slideshow,Слайд-шоу
@@ -2718,7 +2717,7 @@ Source of Funds (Liabilities),Источник финансирования (о�
 Source warehouse is mandatory for row {0},Источник склад является обязательным для ряда {0}
 Spartan,Спартанский
 "Special Characters except ""-"" and ""/"" not allowed in naming series","Специальные символы, кроме ""-"" и ""/"" не допускается в серию называя"
-Specification Details,Подробности спецификации
+Specification Details,Спецификация Подробности
 Specifications,Спецификации
 "Specify a list of Territories, for which, this Price List is valid","Укажите список территорий, для которых, это прайс-лист действителен"
 "Specify a list of Territories, for which, this Shipping Rule is valid","Укажите список территорий, на которые это правило пересылки действует"
@@ -2745,15 +2744,14 @@ Status of {0} {1} is now {2},Статус {0} {1} теперь {2}
 Status updated to {0},Статус обновлен до {0}
 Statutory info and other general information about your Supplier,Уставный информации и другие общие сведения о вашем Поставщик
 Stay Updated,Будьте в курсе
-Stock,Запас
-Stock Adjustment,Регулирование запасов
-Stock Adjustment Account,Регулирование счета запасов
-Stock Ageing,Старение запасов
-Stock Analytics, Анализ запасов
-Stock Assets,"Капитал запасов
-"
-Stock Balance,Баланс запасов
-Stock Entries already created for Production Order ,Stock Entries already created for Production Order 
+Stock,Акции
+Stock Adjustment,Фото со Регулировка
+Stock Adjustment Account,Фото со Регулировка счета
+Stock Ageing,Фото Старение
+Stock Analytics,Акции Аналитика
+Stock Assets,Фондовые активы
+Stock Balance,Фото со Баланс
+Stock Entries already created for Production Order ,
 Stock Entry,Фото Вступление
 Stock Entry Detail,Фото Вступление Подробно
 Stock Expenses,Акции Расходы
@@ -2799,7 +2797,7 @@ Submit all salary slips for the above selected criteria,Представьте �
 Submit this Production Order for further processing.,Отправить эту производственного заказа для дальнейшей обработки.
 Submitted,Представленный
 Subsidiary,Филиал
-Successful: ,Successful: 
+Successful: ,
 Successfully Reconciled,Успешно Примирение
 Suggestions,намеки
 Sunday,Воскресенье
@@ -2917,7 +2915,7 @@ The Organization,Организация
 "The account head under Liability, in which Profit/Loss will be booked","Счет голову под ответственности, в котором Прибыль / убыток будут забронированы"
 The date on which next invoice will be generated. It is generated on submit.,"Дата, на которую будет сгенерирован следующий счет-фактура. Он создается на представить."
 The date on which recurring invoice will be stop,"Дата, на которую повторяющихся счет будет остановить"
-"The day of the month on which auto invoice will be generated e.g. 05, 28 etc ","The day of the month on which auto invoice will be generated e.g. 05, 28 etc "
+"The day of the month on which auto invoice will be generated e.g. 05, 28 etc ",
 The day(s) on which you are applying for leave are holiday. You need not apply for leave.,"День (дни), на котором вы подаете заявление на отпуск, отпуск. Вам не нужно обратиться за разрешением."
 The first Leave Approver in the list will be set as the default Leave Approver,Оставить утверждающий в списке будет установлен по умолчанию Оставить утверждающего
 The first user will become the System Manager (you can change that later).,Первый пользователь станет System Manager (вы можете изменить это позже).
@@ -2964,7 +2962,7 @@ Time Zones,Часовые пояса
 Time and Budget,Время и бюджет
 Time at which items were delivered from warehouse,"Момент, в который предметы были доставлены со склада"
 Time at which materials were received,"Момент, в который были получены материалы"
-Title,Заголовок
+Title,Как к вам обращаться?
 Titles for print templates e.g. Proforma Invoice.,"Титулы для шаблонов печати, например, счет-проформа."
 To,До
 To Currency,В валюту
@@ -2972,7 +2970,7 @@ To Date,Чтобы Дата
 To Date should be same as From Date for Half Day leave,"Чтобы Дата должна быть такой же, как С даты в течение половины дня отпуска"
 To Date should be within the Fiscal Year. Assuming To Date = {0},Чтобы Дата должна быть в пределах финансового года. Предполагая To Date = {0}
 To Discuss,Для Обсудить
-To Do List,Список задач
+To Do List,Задачи
 To Package No.,Для пакета №
 To Produce,Чтобы продукты
 To Time,Чтобы время
@@ -3004,7 +3002,7 @@ Total Advance,Всего Advance
 Total Amount,Общая сумма
 Total Amount To Pay,Общая сумма платить
 Total Amount in Words,Общая сумма в словах
-Total Billing This Year: ,Total Billing This Year: 
+Total Billing This Year: ,
 Total Characters,Персонажей
 Total Claimed Amount,Всего заявленной суммы
 Total Commission,Всего комиссия
@@ -3161,7 +3159,7 @@ Walk In,Прогулка в
 Warehouse,Склад
 Warehouse Contact Info,Склад Контактная информация
 Warehouse Detail,Склад Подробно
-Warehouse Name,Название склада
+Warehouse Name,Склад Имя
 Warehouse and Reference,Склад и справочники
 Warehouse can not be deleted as stock ledger entry exists for this warehouse.,Склад не может быть удален как существует запись складе книга для этого склада.
 Warehouse can only be changed via Stock Entry / Delivery Note / Purchase Receipt,Склад может быть изменен только с помощью со входа / накладной / Покупка получении
@@ -3221,13 +3219,12 @@ Will be updated when billed.,Будет обновляться при счет.
 Wire Transfer,Банковский перевод
 With Operations,С операций
 With Period Closing Entry,С Период закрытия въезда
-Work Details,"Подробности работы
-"
+Work Details,Рабочие Подробнее
 Work Done,Сделано
 Work In Progress,Работа продолжается
 Work-in-Progress Warehouse,Работа-в-Прогресс Склад
 Work-in-Progress Warehouse is required before Submit,Работа-в-Прогресс Склад требуется перед Отправить
-Working,Работающий
+Working,На рабо
 Working Days,В рабочие дни
 Workstation,Рабочая станция
 Workstation Name,Имя рабочей станции

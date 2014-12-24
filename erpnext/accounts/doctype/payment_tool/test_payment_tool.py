@@ -31,10 +31,9 @@ class TestPaymentTool(unittest.TestCase):
 			"customer": "_Test Customer 3"
 		})
 
-		jv_against_so1 = self.create_against_jv(jv_test_records[0], {
+		jv_against_so1 = self.create_against_jv(jv_test_records[0], { 
 			"account": "_Test Customer 3 - _TC",
-			"against_sales_order": so1.name,
-			"is_advance": "Yes"
+			"against_sales_order": so1.name
 		})
 
 
@@ -43,11 +42,10 @@ class TestPaymentTool(unittest.TestCase):
 			"customer": "_Test Customer 3"
 		})
 
-		jv_against_so2 = self.create_against_jv(jv_test_records[0], {
+		jv_against_so2 = self.create_against_jv(jv_test_records[0], { 
 			"account": "_Test Customer 3 - _TC",
 			"against_sales_order": so2.name,
-			"credit": 1000,
-			"is_advance": "Yes"
+			"credit": 1000
 		})
 		po = self.create_voucher(po_test_records[1], {
 			"supplier": "_Test Supplier 1"
@@ -56,20 +54,20 @@ class TestPaymentTool(unittest.TestCase):
 		#Create SI with partial outstanding
 		si1 = self.create_voucher(si_test_records[0], {
 			"customer": "_Test Customer 3",
-			"debit_to": "_Test Customer 3 - _TC"
+			"debit_to": "_Test Customer 3 - _TC" 
 		})
-
-		jv_against_si1 = self.create_against_jv(jv_test_records[0], {
+		
+		jv_against_si1 = self.create_against_jv(jv_test_records[0], { 
 			"account": "_Test Customer 3 - _TC",
 			"against_invoice": si1.name
 		})
 		#Create SI with no outstanding
 		si2 = self.create_voucher(si_test_records[0], {
 			"customer": "_Test Customer 3",
-			"debit_to": "_Test Customer 3 - _TC"
+			"debit_to": "_Test Customer 3 - _TC" 
 		})
-
-		jv_against_si2 = self.create_against_jv(jv_test_records[0], {
+		
+		jv_against_si2 = self.create_against_jv(jv_test_records[0], { 
 			"account": "_Test Customer 3 - _TC",
 			"against_invoice": si2.name,
 			"credit": 561.80
@@ -77,7 +75,7 @@ class TestPaymentTool(unittest.TestCase):
 
 		pi = self.create_voucher(pi_test_records[0], {
 			"supplier": "_Test Supplier 1",
-			"credit_to": "_Test Supplier 1 - _TC"
+			"credit_to": "_Test Supplier 1 - _TC" 
 		})
 
 		#Create a dict containing properties and expected values
@@ -139,7 +137,7 @@ class TestPaymentTool(unittest.TestCase):
 			payment_tool_doc.set(k, v)
 
 		self.check_outstanding_vouchers(payment_tool_doc, args, expected_outstanding)
-
+		
 
 	def check_outstanding_vouchers(self, doc, args, expected_outstanding):
 		from erpnext.accounts.doctype.payment_tool.payment_tool import get_outstanding_vouchers
@@ -163,7 +161,7 @@ class TestPaymentTool(unittest.TestCase):
 
 		new_jv = paytool.make_journal_voucher()
 
-		#Create a list of expected values as [party account, payment against, against_jv, against_invoice,
+		#Create a list of expected values as [party account, payment against, against_jv, against_invoice, 
 		#against_voucher, against_sales_order, against_purchase_order]
 		expected_values = [
 			[paytool.party_account, 100.00, expected_outstanding.get("Journal Voucher")[0], None, None, None, None],
@@ -173,7 +171,7 @@ class TestPaymentTool(unittest.TestCase):
 			[paytool.party_account, 100.00, None, None, None, None, expected_outstanding.get("Purchase Order")[0]]
 		]
 
-		for jv_entry in new_jv.get("entries"):
+		for jv_entry in new_jv.get("entries"): 
 			if paytool.party_account == jv_entry.get("account"):
 				row = [
 					jv_entry.get("account"),
@@ -185,11 +183,11 @@ class TestPaymentTool(unittest.TestCase):
 					jv_entry.get("against_purchase_order"),
 				]
 				self.assertTrue(row in expected_values)
-
+			
 		self.assertEquals(new_jv.get("cheque_no"), paytool.reference_no)
 		self.assertEquals(new_jv.get("cheque_date"), paytool.reference_date)
 
 	def clear_table_entries(self):
 		frappe.db.sql("""delete from `tabGL Entry` where (account = "_Test Customer 3 - _TC" or account = "_Test Supplier 1 - _TC")""")
 		frappe.db.sql("""delete from `tabSales Order` where customer_name = "_Test Customer 3" """)
-		frappe.db.sql("""delete from `tabPurchase Order` where supplier_name = "_Test Supplier 1" """)
+		frappe.db.sql("""delete from `tabPurchase Order` where supplier_name = "_Test Supplier 1" """)	

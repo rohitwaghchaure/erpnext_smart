@@ -71,7 +71,7 @@ erpnext.buying.BuyingController = erpnext.TransactionController.extend({
 	},
 
 	contact_person: function() {
-		erpnext.utils.get_contact_details(this.frm);
+		this.supplier_address();
 	},
 
 	buying_price_list: function() {
@@ -210,14 +210,13 @@ erpnext.buying.BuyingController = erpnext.TransactionController.extend({
 	calculate_totals: function() {
 		var tax_count = this.frm.tax_doclist.length;
 		this.frm.doc.grand_total = flt(tax_count ?
-			this.frm.tax_doclist[tax_count - 1].total : this.frm.doc.net_total);
-		this.frm.doc.grand_total_import = flt(this.frm.doc.grand_total / this.frm.doc.conversion_rate);
+			this.frm.tax_doclist[tax_count - 1].total : this.frm.doc.net_total,
+			precision("grand_total"));
+		this.frm.doc.grand_total_import = flt(this.frm.doc.grand_total /
+			this.frm.doc.conversion_rate, precision("grand_total_import"));
 
 		this.frm.doc.total_tax = flt(this.frm.doc.grand_total - this.frm.doc.net_total,
 			precision("total_tax"));
-
-		this.frm.doc.grand_total = flt(this.frm.doc.grand_total, precision("grand_total"));
-		this.frm.doc.grand_total_import = flt(this.frm.doc.grand_total_import, precision("grand_total_import"));
 
 		// rounded totals
 		if(frappe.meta.get_docfield(this.frm.doc.doctype, "rounded_total", this.frm.doc.name)) {

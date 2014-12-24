@@ -35,3 +35,18 @@ def add_node():
 		doc.employee = frappe.form_dict.get('employee')
 
 	doc.save()
+
+@frappe.whitelist()
+def get_product_children():
+	ctype = frappe.local.form_dict.get('ctype')
+	frappe.local.form_dict['parent_field'] = 'parent_' + ctype.lower().replace(' ', '_')
+	if not frappe.form_dict.get('parent'):
+		frappe.local.form_dict['parent'] = ''
+
+	return frappe.db.sql("""select value, expandable,(select file_url FROM `tabFile Data` WHERE
+		attached_to_name=value AND attached_to_doctype='Product Catalog')as image_url from(select name as value,
+		if(is_group='Yes', 1, 0) as expandable
+		from `tab%(ctype)s`
+		where docstatus < 2
+		and ifnull(%(parent_field)s,'') = "%(parent)s"
+		order by name) as foo""" % frappe.local.form_dict, as_dict=1)

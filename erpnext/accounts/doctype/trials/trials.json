@@ -1,0 +1,206 @@
+{
+ "allow_copy": 0, 
+ "allow_import": 0, 
+ "allow_rename": 0, 
+ "autoname": "TD/.#######", 
+ "creation": "2014-09-30 18:53:26.617670", 
+ "custom": 0, 
+ "docstatus": 0, 
+ "doctype": "DocType", 
+ "document_type": "", 
+ "fields": [
+  {
+   "fieldname": "basic_details", 
+   "fieldtype": "Section Break", 
+   "label": "Basic Details", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "sales_invoice", 
+   "fieldtype": "Data", 
+   "label": "Sales Invoice", 
+   "permlevel": 0, 
+   "precision": "", 
+   "read_only": 1
+  }, 
+  {
+   "fieldname": "customer", 
+   "fieldtype": "Link", 
+   "label": "Customer", 
+   "options": "Customer", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "customer_name", 
+   "fieldtype": "Data", 
+   "label": "Customer Name", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "serial_no_data", 
+   "fieldtype": "Small Text", 
+   "hidden": 1, 
+   "label": "Serial No Data", 
+   "no_copy": 1, 
+   "permlevel": 0, 
+   "precision": "", 
+   "print_hide": 1, 
+   "report_hide": 1
+  }, 
+  {
+   "fieldname": "trial_serial_no", 
+   "fieldtype": "Link", 
+   "label": "Serial No", 
+   "options": "Serial No", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "trials_serial_no_status", 
+   "fieldtype": "Data", 
+   "hidden": 0, 
+   "label": "Trial Serial Number", 
+   "no_copy": 1, 
+   "permlevel": 0, 
+   "precision": "", 
+   "print_hide": 1, 
+   "read_only": 1, 
+   "report_hide": 1
+  }, 
+  {
+   "fieldname": "finish_trial_for_process", 
+   "fieldtype": "Link", 
+   "label": "Finish Trial For Process", 
+   "options": "Process", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "finished_all_trials", 
+   "fieldtype": "Check", 
+   "label": "Finished All Trials", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "column_break_4", 
+   "fieldtype": "Column Break", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "item_code", 
+   "fieldtype": "Link", 
+   "in_list_view": 1, 
+   "label": "Item Code", 
+   "options": "Item", 
+   "permlevel": 0, 
+   "precision": "", 
+   "reqd": 1
+  }, 
+  {
+   "fieldname": "item_name", 
+   "fieldtype": "Read Only", 
+   "in_list_view": 1, 
+   "label": "Item Name", 
+   "options": "item_code.item_name", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "pdd", 
+   "fieldtype": "Data", 
+   "hidden": 0, 
+   "label": "PDD", 
+   "no_copy": 1, 
+   "permlevel": 0, 
+   "precision": "", 
+   "print_hide": 1
+  }, 
+  {
+   "fieldname": "work_order", 
+   "fieldtype": "Data", 
+   "hidden": 0, 
+   "label": "Work Order", 
+   "permlevel": 0, 
+   "precision": "", 
+   "read_only": 1
+  }, 
+  {
+   "fieldname": "section_break_5", 
+   "fieldtype": "Section Break", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "allow_on_submit": 0, 
+   "fieldname": "trial_dates", 
+   "fieldtype": "Table", 
+   "hidden": 0, 
+   "ignore_user_permissions": 0, 
+   "in_filter": 0, 
+   "in_list_view": 0, 
+   "label": "Trial Dates", 
+   "no_copy": 0, 
+   "options": "Trial Dates", 
+   "permlevel": 0, 
+   "precision": "", 
+   "print_hide": 0, 
+   "read_only": 0, 
+   "report_hide": 0, 
+   "reqd": 0, 
+   "search_index": 0, 
+   "set_only_once": 0
+  }, 
+  {
+   "fieldname": "completed_process_log", 
+   "fieldtype": "Table", 
+   "label": "Completed Process Log", 
+   "options": "Completed Process Log", 
+   "permlevel": 0, 
+   "precision": "", 
+   "read_only": 0
+  }
+ ], 
+ "hide_heading": 0, 
+ "hide_toolbar": 0, 
+ "icon": "icon-truck", 
+ "in_create": 0, 
+ "in_dialog": 0, 
+ "is_submittable": 0, 
+ "issingle": 0, 
+ "istable": 0, 
+ "modified": "2014-12-16 15:04:49.446366", 
+ "modified_by": "Administrator", 
+ "module": "Accounts", 
+ "name": "Trials", 
+ "name_case": "", 
+ "owner": "Administrator", 
+ "permissions": [
+  {
+   "amend": 0, 
+   "apply_user_permissions": 0, 
+   "cancel": 0, 
+   "create": 1, 
+   "delete": 1, 
+   "email": 0, 
+   "export": 0, 
+   "import": 0, 
+   "permlevel": 0, 
+   "print": 0, 
+   "read": 1, 
+   "report": 0, 
+   "role": "All", 
+   "set_user_permissions": 0, 
+   "submit": 0, 
+   "write": 1
+  }
+ ], 
+ "read_only": 0, 
+ "read_only_onload": 0, 
+ "sort_field": "modified", 
+ "sort_order": "DESC"
+}

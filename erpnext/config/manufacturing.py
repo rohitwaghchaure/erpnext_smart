@@ -27,6 +27,16 @@ def get_data():
 					"name": "Workstation",
 					"description": _("Where manufacturing operations are carried out."),
 				},
+				{
+					"type": "doctype",
+					"name": "Cut Order",
+					"description": _("Cut Order"),
+				},
+				{
+					"type": "doctype",
+					"name": "Work Order",
+					"description": _("Work Order"),
+				},
 
 			]
 		},

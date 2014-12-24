@@ -10,3 +10,5 @@ Stock
 Support
 Utilities
 Contacts
+Dashboard
+Admin Module

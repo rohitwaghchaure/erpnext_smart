@@ -10,8 +10,12 @@ erpnext.hr.EmployeeController = frappe.ui.form.Controller.extend({
 			return { query: "erpnext.controllers.queries.employee_query"} }
 	},
 
-	onload: function() {
+	onload: function(doc, dt, dn) {
+
+		// cur_frm.cscript.skill_onload(doc, dt, dn)
+	
 		if(this.frm.doc.__islocal) this.frm.set_value("employee_name", "");
+
 		this.frm.set_query("leave_approver", "employee_leave_approvers", function() {
 			return {
 				filters: [["UserRole", "role", "=", "Leave Approver"]]
@@ -24,9 +28,10 @@ erpnext.hr.EmployeeController = frappe.ui.form.Controller.extend({
 		erpnext.toggle_naming_series();
 		if(!this.frm.doc.__islocal && this.frm.doc.__onload &&
 			!this.frm.doc.__onload.salary_structure_exists) {
-				cur_frm.add_custom_button(__('Make Salary Structure'), function() {
+			    cur_frm.add_custom_button(__('Make Salary Structure'), function() {
 					me.make_salary_structure(this); }, frappe.boot.doctype_icons["Salary Structure"]);
 		}
+		
 	},
 
 	date_of_birth: function() {
@@ -44,6 +49,7 @@ erpnext.hr.EmployeeController = frappe.ui.form.Controller.extend({
 			}[this.frm.doc.salutation]);
 		}
 	},
+
 
 	make_salary_structure: function(btn) {
 		frappe.model.open_mapped_doc({

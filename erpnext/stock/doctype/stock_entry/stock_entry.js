@@ -60,7 +60,7 @@ erpnext.stock.StockEntry = erpnext.stock.StockController.extend({
 		this.set_default_account();
 	},
 
-	refresh: function() {
+	refresh: function(doc, cdt, cdn) {
 		var me = this;
 		erpnext.toggle_naming_series();
 		this.toggle_related_fields(this.frm.doc);
@@ -80,7 +80,6 @@ erpnext.stock.StockEntry = erpnext.stock.StockController.extend({
 				this.add_excise_button();
 			}
 		}
-
 	},
 
 	on_submit: function() {
@@ -120,7 +119,7 @@ erpnext.stock.StockEntry = erpnext.stock.StockController.extend({
 	clean_up: function() {
 		// Clear Production Order record from locals, because it is updated via Stock Entry
 		if(this.frm.doc.production_order &&
-				this.frm.doc.purpose == "Manufacture") {
+				this.frm.doc.purpose == "Manufacture/Repack") {
 			frappe.model.remove_from_locals("Production Order",
 				this.frm.doc.production_order);
 		}
@@ -162,7 +161,7 @@ erpnext.stock.StockEntry = erpnext.stock.StockController.extend({
 	},
 
 	toggle_enable_bom: function() {
-		this.frm.toggle_enable("bom_no", this.frm.doc.purpose!="Manufacture");
+		this.frm.toggle_enable("bom_no", !this.frm.doc.production_order);
 	},
 
 	get_doctype_docname: function() {
@@ -328,18 +327,20 @@ erpnext.stock.StockEntry = erpnext.stock.StockController.extend({
 });
 
 cur_frm.script_manager.make(erpnext.stock.StockEntry);
-
+//Rohit
 cur_frm.cscript.toggle_related_fields = function(doc) {
-	disable_from_warehouse = inList(["Material Receipt", "Sales Return"], doc.purpose);
-	disable_to_warehouse = inList(["Material Issue", "Purchase Return"], doc.purpose);
+	disable_from_warehouse = inList(["Material Receipt", "Sales Return","Material In"], doc.purpose_type);
+	disable_all_warehouse = inList(["Material Receipt", "Sales Return","Material In","Material Issue", "Purchase Return","Manufacture/Repack"], doc.purpose_type);
+	disable_out_warehouse = inList(["Material Receipt", "Sales Return","Material Out","Material Issue", "Purchase Return","Manufacture/Repack"], doc.purpose_type);
+	disable_to_warehouse = inList(["Material Issue", "Purchase Return","Material Out"], doc.purpose_type);
 
 	cur_frm.toggle_enable("from_warehouse", !disable_from_warehouse);
 	cur_frm.toggle_enable("to_warehouse", !disable_to_warehouse);
 
 	cur_frm.fields_dict["mtn_details"].grid.set_column_disp("s_warehouse", !disable_from_warehouse);
 	cur_frm.fields_dict["mtn_details"].grid.set_column_disp("t_warehouse", !disable_to_warehouse);
-
-	cur_frm.cscript.toggle_enable_bom();
+	cur_frm.fields_dict["mtn_details"].grid.set_column_disp("target_branch", !disable_all_warehouse);
+	cur_frm.fields_dict["mtn_details"].grid.set_column_disp("source_warehouse", !disable_out_warehouse);
 
 	if(doc.purpose == 'Purchase Return') {
 		doc.customer = doc.customer_name = doc.customer_address =
@@ -353,8 +354,6 @@ cur_frm.cscript.toggle_related_fields = function(doc) {
 			doc.delivery_note_no = doc.sales_invoice_no = doc.supplier =
 			doc.supplier_name = doc.supplier_address = doc.purchase_receipt_no = null;
 	}
-
-
 }
 
 cur_frm.fields_dict['production_order'].get_query = function(doc) {
@@ -366,7 +365,15 @@ cur_frm.fields_dict['production_order'].get_query = function(doc) {
 	}
 }
 
-cur_frm.cscript.purpose = function(doc, cdt, cdn) {
+cur_frm.cscript.purpose_type = function(doc, cdt, cdn) {
+	doc.purpose = doc.purpose_type
+	if(doc.purpose_type == 'Material Out'){
+		doc.purpose = 'Material Issue'
+	}
+	else if(doc.purpose_type == 'Material In'){
+		doc.purpose = 'Material Receipt'	
+	}
+	refresh_field('purpose')
 	cur_frm.cscript.toggle_related_fields(doc);
 }
 
@@ -461,5 +468,7 @@ cur_frm.fields_dict.customer.get_query = function(doc, cdt, cdn) {
 cur_frm.fields_dict.supplier.get_query = function(doc, cdt, cdn) {
 	return { query: "erpnext.controllers.queries.supplier_query" }
 }
-cur_frm.add_fetch('production_order', 'total_fixed_cost', 'total_fixed_cost');
-cur_frm.add_fetch('bom_no', 'total_fixed_cost', 'total_fixed_cost');
+
+
+cur_frm.add_fetch("branch", "warehouse", "from_warehouse");
+

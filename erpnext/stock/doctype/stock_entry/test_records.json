@@ -9,7 +9,7 @@
     "cost_center": "_Test Cost Center - _TC", 
     "doctype": "Stock Entry Detail", 
     "expense_account": "Stock Adjustment - _TC", 
-    "incoming_rate": 100,
+    "incoming_rate": 100, 
     "item_code": "_Test Item", 
     "parentfield": "mtn_details", 
     "qty": 50.0, 
@@ -108,6 +108,6 @@
   ], 
   "posting_date": "2013-01-25", 
   "posting_time": "17:14:24", 
-  "purpose": "Repack"
+  "purpose": "Manufacture/Repack"
  }
 ]

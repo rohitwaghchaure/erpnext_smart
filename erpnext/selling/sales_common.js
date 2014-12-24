@@ -341,17 +341,17 @@ erpnext.selling.SellingController = erpnext.TransactionController.extend({
 		var me = this;
 		var tax_count = this.frm.tax_doclist.length;
 
-		this.frm.doc.grand_total = flt(tax_count ? this.frm.tax_doclist[tax_count - 1].total : this.frm.doc.net_total);
-		this.frm.doc.grand_total_export = flt(this.frm.doc.grand_total / this.frm.doc.conversion_rate);
+		this.frm.doc.grand_total = flt(
+			tax_count ? this.frm.tax_doclist[tax_count - 1].total : this.frm.doc.net_total,
+			precision("grand_total"));
+		this.frm.doc.grand_total_export = flt(this.frm.doc.grand_total / this.frm.doc.conversion_rate,
+			precision("grand_total_export"));
 
 		this.frm.doc.other_charges_total = flt(this.frm.doc.grand_total - this.frm.doc.net_total,
 			precision("other_charges_total"));
 		this.frm.doc.other_charges_total_export = flt(this.frm.doc.grand_total_export -
 			this.frm.doc.net_total_export + flt(this.frm.doc.discount_amount),
 			precision("other_charges_total_export"));
-
-		this.frm.doc.grand_total = flt(this.frm.doc.grand_total, precision("grand_total"));
-		this.frm.doc.grand_total_export = flt(this.frm.doc.grand_total_export, precision("grand_total_export"));
 
 		this.frm.doc.rounded_total = Math.round(this.frm.doc.grand_total);
 		this.frm.doc.rounded_total_export = Math.round(this.frm.doc.grand_total_export);
@@ -587,18 +587,16 @@ erpnext.selling.SellingController = erpnext.TransactionController.extend({
 });
 
 frappe.ui.form.on(cur_frm.doctype,"project_name", function(frm) {
-	if(in_list(["Delivery Note", "Sales Invoice"], frm.doc.doctype)) {
-		frappe.call({
-			method:'erpnext.projects.doctype.project.project.get_cost_center_name' ,
-			args: {	project_name: frm.doc.project_name	},
-			callback: function(r, rt) {
-				if(!r.exc) {
-					$.each(frm.doc[cur_frm.cscript.fname] || [], function(i, row) {
-						frappe.model.set_value(row.doctype, row.name, "cost_center", r.message);
-						msgprint(__("Cost Center For Item with Item Code '"+row.item_name+"' has been Changed to "+ r.message));
-					})
-				}
+	frappe.call({
+		method:'erpnext.projects.doctype.project.project.get_cost_center_name' ,
+		args: {	project_name: frm.doc.project_name	},
+		callback: function(r, rt) {
+			if(!r.exc) { 
+				$.each(frm.doc[cur_frm.cscript.fname] || [], function(i, row) {
+					frappe.model.set_value(row.doctype, row.name, "cost_center", r.message);
+					msgprint(__("Cost Center For Item with Item Code '"+row.item_name+"' has been Changed to "+ r.message));
+				})
 			}
-		})
-	}
+		}
+	})
 })

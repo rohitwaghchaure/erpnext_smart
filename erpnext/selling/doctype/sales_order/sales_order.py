@@ -4,9 +4,13 @@
 from __future__ import unicode_literals
 import frappe
 import frappe.utils
+
 from frappe.utils import cstr, flt, getdate, comma_and
+
 from frappe import _
 from frappe.model.mapper import get_mapped_doc
+
+from erpnext.controllers.recurring_document import convert_to_recurring, validate_recurring_document
 
 from erpnext.controllers.selling_controller import SellingController
 
@@ -118,6 +122,8 @@ class SalesOrder(SellingController):
 		if not self.billing_status: self.billing_status = 'Not Billed'
 		if not self.delivery_status: self.delivery_status = 'Not Delivered'
 
+		validate_recurring_document(self)
+
 	def validate_warehouse(self):
 		from erpnext.stock.utils import validate_warehouse_company
 
@@ -151,16 +157,16 @@ class SalesOrder(SellingController):
 				doc.set_status(update=True)
 
 	def on_submit(self):
-		super(SalesOrder, self).on_submit()
-
 		self.update_stock_ledger(update_stock = 1)
 
 		self.check_credit(self.grand_total)
 
-		frappe.get_doc('Authorization Control').validate_approving_authority(self.doctype, self.company, self.grand_total, self)
+		frappe.get_doc('Authorization Control').validate_approving_authority(self.doctype, self.grand_total, self)
 
 		self.update_prevdoc_status('submit')
 		frappe.db.set(self, 'status', 'Submitted')
+		
+		convert_to_recurring(self, "SO/REC/.#####", self.transaction_date)
 
 	def on_cancel(self):
 		# Cannot cancel stopped SO
@@ -249,6 +255,11 @@ class SalesOrder(SellingController):
 	def get_portal_page(self):
 		return "order" if self.docstatus==1 else None
 
+	def on_update_after_submit(self):
+		validate_recurring_document(self)
+		convert_to_recurring(self, "SO/REC/.#####", self.transaction_date)
+
+
 @frappe.whitelist()
 def make_material_request(source_name, target_doc=None):
 	def postprocess(source, doc):
@@ -275,14 +286,6 @@ def make_material_request(source_name, target_doc=None):
 @frappe.whitelist()
 def make_delivery_note(source_name, target_doc=None):
 	def set_missing_values(source, target):
-		if source.po_no:
-			if target.po_no:
-				target_po_no = target.po_no.split(", ")
-				target_po_no.append(source.po_no)
-				target.po_no = ", ".join(list(set(target_po_no))) if len(target_po_no) > 1 else target_po_no[0]
-			else:
-				target.po_no = source.po_no
-
 		target.ignore_pricing_rule = 1
 		target.run_method("set_missing_values")
 		target.run_method("calculate_taxes_and_totals")
@@ -323,11 +326,6 @@ def make_delivery_note(source_name, target_doc=None):
 
 @frappe.whitelist()
 def make_sales_invoice(source_name, target_doc=None):
-	def postprocess(source, target):
-		set_missing_values(source, target)
-		#Get the advance paid Journal Vouchers in Sales Invoice Advance
-		target.get_advances()
-
 	def set_missing_values(source, target):
 		target.is_pos = 0
 		target.ignore_pricing_rule = 1
@@ -337,7 +335,7 @@ def make_sales_invoice(source_name, target_doc=None):
 	def update_item(source, target, source_parent):
 		target.amount = flt(source.amount) - flt(source.billed_amt)
 		target.base_amount = target.amount * flt(source_parent.conversion_rate)
-		target.qty = target.amount / flt(source.rate) if (source.rate and source.billed_amt) else source.qty
+		target.qty = source.rate and target.amount / flt(source.rate) or source.qty
 
 	doclist = get_mapped_doc("Sales Order", source_name, {
 		"Sales Order": {
@@ -363,7 +361,7 @@ def make_sales_invoice(source_name, target_doc=None):
 			"doctype": "Sales Team",
 			"add_if_empty": True
 		}
-	}, target_doc, postprocess)
+	}, target_doc, set_missing_values)
 
 	return doclist
 

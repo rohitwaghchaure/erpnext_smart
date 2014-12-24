@@ -225,7 +225,8 @@ $.extend(cur_frm.cscript, new erpnext.accounts.SalesInvoiceController({frm: cur_
 // Hide Fields
 // ------------
 cur_frm.cscript.hide_fields = function(doc) {
-	par_flds = ['project_name', 'due_date', 'is_opening', 'source', 'total_advance', 'get_advances_received',
+	par_flds = ['project_name', 'due_date', 'is_opening', 'source', 'total_advance', 'gross_profit',
+	'gross_profit_percent', 'get_advances_received',
 	'advance_adjustment_details', 'sales_partner', 'commission_rate',
 	'total_commission', 'advances', 'from_date', 'to_date'];
 
@@ -244,7 +245,7 @@ cur_frm.cscript.hide_fields = function(doc) {
 		cur_frm.fields_dict['entries'].grid.set_column_disp(item_flds_normal, true);
 	}
 
-	item_flds_stock = ['serial_no', 'batch_no', 'actual_qty', 'expense_account', 'warehouse']
+	item_flds_stock = ['batch_no', 'actual_qty', 'expense_account', 'warehouse']
 	cur_frm.fields_dict['entries'].grid.set_column_disp(item_flds_stock,
 		(cint(doc.update_stock)==1 ? true : false));
 
@@ -403,3 +404,231 @@ cur_frm.cscript.send_sms = function() {
 	var sms_man = new SMSManager(cur_frm.doc);
 }
 
+//Rohit
+cur_frm.cscript.validate = function(doc, cdt, cdn){	
+setTimeout(function(){
+refresh_field(['entries','net_total_export','grand_total_export','outstanding_amount','rounded_total_export','in_words_export','work_order_distribution']);
+},1000)
+
+}
+//for tailoring products
+cur_frm.cscript.tailoring_item_code = function(doc, cdt, cdn){
+var d = locals[cdt][cdn]
+get_server_fields('get_details',d.tailoring_item_code,'',doc, cdt, cdn, 1 , function(doc, cdt, cdn){
+refresh_field('sales_invoice_items_one')
+})
+}
+cur_frm.cscript.tailoring_qty = function(doc, cdt, cdn){
+cur_frm.cscript.calculate_tailoring_amount(doc, cdt, cdn);
+}	
+cur_frm.cscript.tailoring_rate = function(doc, cdt, cdn){
+cur_frm.cscript.calculate_tailoring_amount(doc, cdt, cdn);
+}
+cur_frm.cscript.tailoring_discount_percentage = function(doc, cdt, cdn){
+cur_frm.cscript.calculate_tailoring_amount(doc, cdt, cdn);	
+}
+cur_frm.cscript.calculate_tailoring_amount = function(doc, cdt, cdn){
+var d = locals[cdt][cdn]
+if(d.tailoring_discount_percentage == 100.0)
+{
+d.tailoring_amount = 0	
+}
+else
+{
+if(d.tailoring_discount_percentage)
+{
+d.tailoring_amount = flt(d.tailoring_rate * (1.0 - (flt(d.tailoring_discount_percentage) / 100.0))*d.tailoring_qty)
+}
+else{
+d.tailoring_amount = flt(flt(d.tailoring_rate) *flt(d.tailoring_qty))
+}
+}
+refresh_field('sales_invoice_items_one')
+cur_frm.cscript.calculate_net_total(doc, cdt, cdn)
+}
+//for merchandise products
+cur_frm.cscript.merchandise_item_code = function(doc, cdt, cdn){
+var d = locals[cdt][cdn]
+get_server_fields('get_merchandise_details',d.merchandise_item_code,'',doc, cdt, cdn, 1 , function(doc, cdt, cdn){
+refresh_field('merchandise_item')
+})
+}
+cur_frm.cscript.merchandise_qty = function(doc, cdt, cdn){
+cur_frm.cscript.calculate_merchandise_amount(doc, cdt, cdn);
+}
+cur_frm.cscript.merchandise_rate = function(doc, cdt, cdn){
+cur_frm.cscript.calculate_merchandise_amount(doc, cdt, cdn);
+}
+cur_frm.cscript.merchandise_discount_percentage = function(doc, cdt, cdn){
+cur_frm.cscript.calculate_merchandise_amount(doc, cdt, cdn);
+}
+cur_frm.cscript.calculate_merchandise_amount = function(doc, cdt, cdn){
+var d = locals[cdt][cdn]
+if(d.merchandise_discount_percentage == 100.0)
+{
+d.merchandise_amount = 0
+}
+else
+{
+if(d.merchandise_discount_percentage)
+{
+d.merchandise_amount = flt(d.merchandise_rate * (1.0 - (d.merchandise_discount_percentage / 100.0))*d.merchandise_qty)
+}
+else{
+d.merchandise_amount = flt(flt(d.merchandise_rate) *flt(d.merchandise_qty))
+}
+}
+refresh_field('merchandise_item')
+cur_frm.cscript.calculate_net_total(doc, cdt, cdn)
+}
+cur_frm.cscript.sales_invoice_items_one_remove = function(doc, cdt, cdn){
+cur_frm.cscript.calculate_net_total(doc, cdt, cdn)
+}
+cur_frm.cscript.merchandise_item_remove = function(doc, cdt, cdn){
+cur_frm.cscript.calculate_net_total(doc, cdt, cdn)
+}
+cur_frm.cscript.calculate_net_total = function(doc, cdt, cdn){
+if (doc){
+var net_total = 0.0
+var cl=doc.sales_invoice_items_one || [ ]
+for(i=0 ;i<cl.length;i++){
+net_total += parseFloat(cl[i].tailoring_amount)
+}
+var al = doc.merchandise_item || [ ]
+for(i=0 ;i<al.length;i++){
+net_total += parseFloat(al[i].merchandise_amount)
+}
+doc.net_total_export = net_total
+refresh_field('net_total_export')
+}
+}
+
+cur_frm.fields_dict['sales_invoice_items_one'].grid.get_field('tailoring_item_code').get_query = function(doc) {
+	return{
+		filters: {
+			'item_group': 'Tailoring'
+		}
+	}
+}
+
+cur_frm.fields_dict['merchandise_item'].grid.get_field('merchandise_item_code').get_query = function(doc) {
+	return{
+		filters: {
+			'item_group': 'Merchandise'
+		}
+	}
+}
+
+cur_frm.fields_dict['sales_invoice_items_one'].grid.get_field('fabric_code').get_query = function(doc) {
+	return{
+		filters: [
+			['Item', 'item_group', 'in', 'Fabric, Fabric Swatch Item']
+		]
+	}
+}
+
+cur_frm.cscript.tailoring_size = function(doc, cdt, cdn){
+	cur_frm.cscript.set_qty(doc, cdt, cdn)
+}
+
+cur_frm.cscript.width = function(doc, cdt, cdn){
+	cur_frm.cscript.set_qty(doc, cdt, cdn)	
+}
+
+cur_frm.cscript.set_qty = function(doc, cdt, cdn){
+	var d = locals[cdt][cdn]
+	get_server_fields('get_size_details',d.idx,'',doc,cdt,cdn,1,function(){
+		refresh_field('sales_invoice_items_one')
+	})
+}
+
+cur_frm.fields_dict['work_order_distribution'].grid.get_field('tailor_work_order').get_query = function(doc, cdt, cdn) {
+	var d = locals[cdt][cdn]
+	return{
+		filters: {
+			'sales_invoice_no': null || doc.name,
+			'item_code': d.tailoring_item_code
+		}
+	}
+}
+
+
+
+{% include 'stock/custom_items.js' %}
+$.extend(cur_frm.cscript, new erpnext.stock.SplitQty({frm: cur_frm}));
+
+
+
+// cur_frm.script_manager.make(erpnext.account.CustomJs);
+var fabric_detail = {}
+
+cur_frm.cscript.reserve_fabric = function(doc, cdt, cdn){
+	var e =locals[cdt][cdn]
+	var image_data;
+	var dialog = new frappe.ui.Dialog({
+			title:__(e.field_name+' Styles'),
+			fields: [
+				{fieldtype:'HTML', fieldname:'styles_name', label:__('Styles'), reqd:false,
+					description: __("")},
+					{fieldtype:'Button', fieldname:'create_new', label:__('Ok') }
+			]
+		})
+	var fd = dialog.fields_dict;
+
+        // $(fd.styles_name.wrapper).append('<div id="style">Welcome</div>')
+        return frappe.call({
+			type: "GET",
+			method: "tools.tools_management.custom_methods.get_warehouse_wise_stock_balance",
+			args: {
+				"item": e.fabric_code,
+				"qty": e.fabric_qty
+			},
+			callback: function(r) {
+				if(r.message) {
+					
+					var result_set = r.message;
+					this.table = $("<table class='table table-bordered'>\
+                       <thead><tr></tr></thead>\
+                       <tbody></tbody>\
+                       </table>").appendTo($(fd.styles_name.wrapper))
+
+					columns =[['','10'],['Warehouse','40'],['Qty','40']]
+					var me = this;
+					$.each(columns, 
+                       function(i, col) {                  
+                       $("<th>").html(col[0]).css("width", col[1]+"%")
+                               .appendTo(me.table.find("thead tr"));
+                  }	);
+					
+					$.each(result_set, function(i, d) {
+						var row = $("<tr>").appendTo(me.table.find("tbody"));
+                       $("<td>").html('<input type="radio" name="sp" value="'+d[0]+'">')
+                       		   .attr("style", d[0])
+                               .attr("image", d[1])
+                               .appendTo(row)
+                               .click(function() {
+                                      if(fabric_detail[d[1]]){
+                                      	fabric_detail[d[1]].push([e.fabric_code, e.fabric_qty, e.tailoring_item_code])
+                                      }
+                                      else{
+                                      	fabric_detail[d[1]] = []
+                                       	fabric_detail[d[1]].push([e.fabric_code, e.fabric_qty, e.tailoring_item_code])
+                                       }
+                               });
+                     
+                       $("<td>").html(d[1]).appendTo(row);
+                       $("<td>").html(d[0]).appendTo(row);                    
+               });
+					
+					dialog.show();
+					$(fd.create_new.input).click(function() {
+						doc.fabric_details = JSON.stringify(fabric_detail)					
+						refresh_field('fabric_details')
+						e.reservation_status = 'Reserved';
+						refresh_field('reservation_status', e.name, 'sales_invoice_items_one')	
+						dialog.hide()
+					})
+				}
+			}
+		})	
+}

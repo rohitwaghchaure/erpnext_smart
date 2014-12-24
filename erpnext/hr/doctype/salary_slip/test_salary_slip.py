@@ -11,6 +11,9 @@ class TestSalarySlip(unittest.TestCase):
 	def setUp(self):
 		frappe.db.sql("""delete from `tabLeave Application`""")
 		frappe.db.sql("""delete from `tabSalary Slip`""")
+		frappe.db.sql("""delete from `tabWeekly Salary Slip`""")
+
+
 		from erpnext.hr.doctype.leave_application.test_leave_application import _test_records as leave_applications
 		la = frappe.copy_doc(leave_applications[2])
 		la.insert()
@@ -56,6 +59,13 @@ class TestSalarySlip(unittest.TestCase):
 		salary_slip_test_employee_2 = frappe.get_doc("Salary Slip",
 			self.make_employee_salary_slip("test_employee_2@example.com"))
 
+		salary_slip_test_employee = frappe.get_doc("Weekly Salary Slip",
+			self.make_employee_salary_slip("test_employee@example.com"))
+
+		salary_slip_test_employee_2 = frappe.get_doc("Weekly Salary Slip",
+			self.make_employee_salary_slip("test_employee_2@example.com"))
+
+
 		frappe.set_user("test_employee@example.com")
 		self.assertTrue(salary_slip_test_employee.has_permission("read"))
 		self.assertFalse(salary_slip_test_employee_2.has_permission("read"))
@@ -100,8 +110,17 @@ class TestSalarySlip(unittest.TestCase):
 			salary_slip.submit()
 			salary_slip = salary_slip.name
 
+		salary_slip = frappe.db.get_value("Weekly Salary Slip", {"employee": employee})
+		if not salary_slip:
+			salary_slip = make_salary_slip(salary_structure)
+			salary_slip.insert()
+			salary_slip.submit()
+			salary_slip = salary_slip.name	
+
 		return salary_slip
 
 test_dependencies = ["Leave Application"]
 
 test_records = frappe.get_test_records('Salary Slip')
+
+test_records = frappe.get_test_records('Weekly Salary Slip')

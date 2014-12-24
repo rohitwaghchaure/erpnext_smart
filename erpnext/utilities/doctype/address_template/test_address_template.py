@@ -20,8 +20,3 @@ class TestAddressTemplate(unittest.TestCase):
 		b.save()
 
 		self.assertEqual(frappe.db.get_value("Address Template", "India", "is_default"), 0)
-
-	def tearDown(self):
-		a = frappe.get_doc("Address Template", "India")
-		a.is_default = 1
-		a.save()

@@ -24,7 +24,6 @@ class ProductionOrder(Document):
 		self.validate_bom_no()
 		self.validate_sales_order()
 		self.validate_warehouse()
-		self.set_fixed_cost()
 
 		from erpnext.utilities.transaction_base import validate_uom_is_integer
 		validate_uom_is_integer(self, "stock_uom", ["qty", "produced_qty"])
@@ -55,10 +54,6 @@ class ProductionOrder(Document):
 
 		for w in [self.fg_warehouse, self.wip_warehouse]:
 			validate_warehouse_company(w, self.company)
-
-	def set_fixed_cost(self):
-		if self.total_fixed_cost==None:
-			self.total_fixed_cost = frappe.db.get_value("BOM", self.bom_no, "total_fixed_cost")
 
 	def validate_production_order_against_so(self):
 		# already ordered qty
@@ -103,7 +98,7 @@ class ProductionOrder(Document):
 			status = "Submitted"
 			if stock_entries:
 				status = "In Process"
-				produced_qty = stock_entries.get("Manufacture")
+				produced_qty = stock_entries.get("Manufacture/Repack")
 				if flt(produced_qty) == flt(self.qty):
 					status = "Completed"
 
@@ -113,7 +108,7 @@ class ProductionOrder(Document):
 	def update_produced_qty(self):
 		produced_qty = frappe.db.sql("""select sum(fg_completed_qty)
 			from `tabStock Entry` where production_order=%s and docstatus=1
-			and purpose='Manufacture'""", self.name)
+			and purpose='Manufacture/Repack'""", self.name)
 		produced_qty = flt(produced_qty[0][0]) if produced_qty else 0
 
 		if produced_qty > self.qty:
@@ -161,10 +156,11 @@ def get_item_details(item):
 		return {}
 
 	res = res[0]
-	bom = frappe.db.sql("""select name as bom_no,total_fixed_cost  from `tabBOM` where item=%s
-		and ifnull(is_default, 0)=1""", item, as_dict=1)
+	bom = frappe.db.sql("""select name from `tabBOM` where item=%s
+		and ifnull(is_default, 0)=1""", item)
 	if bom:
-		res.update(bom[0])
+		res.bom_no = bom[0][0]
+
 	return res
 
 @frappe.whitelist()

@@ -35,6 +35,8 @@ erpnext.selling.Opportunity = frappe.ui.form.Controller.extend({
 			});
 		}
 
+		if(this.frm.doc.customer && !this.frm.doc.customer_name) cur_frm.cscript.customer(this.frm.doc);
+
 		this.setup_queries();
 	},
 

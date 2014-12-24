@@ -36,6 +36,32 @@ class SalarySlip(TransactionBase):
 		from erpnext.hr.doctype.salary_structure.salary_structure import make_salary_slip
 		self.update(make_salary_slip(struct, self).as_dict())
 
+		m = frappe.get_doc('Salary Manager').get_month_details(self.fiscal_year, self.month)
+
+		drawings_overtime_details = frappe.db.sql("""select sum(dd.drawing_amount) as drawings, sum(dd.overtime) as overtime, group_concat(name) as name from `tabDaily Drawing` dd 
+				where dd.employee_id = '%(employee)s' 
+					and ifnull(dd.flag, 'No') != 'Yes'
+					and dd.date between STR_TO_DATE('%(from_date)s','%(format)s') 
+						and  STR_TO_DATE('%(to_date)s','%(format)s')"""%{'format': '%Y-%m-%d', 
+						'from_date': m['month_start_date'], 'to_date': m['month_end_date'], 'employee':self.employee},as_dict=1)
+
+		self.deduction = drawings_overtime_details
+
+		mapper = {'overtime': ['Overtime', drawings_overtime_details[0].get('overtime') if len(drawings_overtime_details) > 0 else 0.0]}
+
+		for types in mapper:
+			d = self.append('earning_details', {})
+			d.e_type =mapper.get(types)[0]
+			d.e_amount = mapper.get(types)[1]
+			d.e_modified_amount = mapper.get(types)[1]
+
+		mapper = {'drawings': ['Drawing', drawings_overtime_details[0].get('drawings') if len(drawings_overtime_details) > 0 else 0.0]}
+
+		for types in mapper:
+			d = self.append('deduction_details', {})
+			d.d_type = mapper.get(types)[0]
+			d.d_modified_amount = mapper.get(types)[1]
+
 	def pull_emp_details(self):
 		emp = frappe.db.get_value("Employee", self.employee,
 			["bank_name", "bank_ac_no"], as_dict=1)
@@ -156,7 +182,7 @@ class SalarySlip(TransactionBase):
 					/ cint(self.total_days_in_month), 2)
 			elif not self.payment_days:
 				d.e_modified_amount = 0
-			elif not d.e_modified_amount:
+			else:
 				d.e_modified_amount = d.e_amount
 			self.gross_pay += flt(d.e_modified_amount)
 
@@ -168,7 +194,7 @@ class SalarySlip(TransactionBase):
 					/ cint(self.total_days_in_month), 2)
 			elif not self.payment_days:
 				d.d_modified_amount = 0
-			elif not d.d_modified_amount:
+			else:
 				d.d_modified_amount = d.d_amount
 
 			self.total_deduction += flt(d.d_modified_amount)
@@ -191,6 +217,9 @@ class SalarySlip(TransactionBase):
 		if receiver:
 			subj = 'Salary Slip - ' + cstr(self.month) +'/'+cstr(self.fiscal_year)
 			sendmail([receiver], subject=subj, msg = _("Please see attachment"),
-				attachments=[frappe.attach_print(self.doctype, self.name, file_name=self.name)])
+				attachments=[{
+					"fname": self.name + ".pdf",
+					"fcontent": frappe.get_print_format(self.doctype, self.name, as_pdf = True)
+				}])
 		else:
 			msgprint(_("Company Email ID not found, hence mail not sent"))

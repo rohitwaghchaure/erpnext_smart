@@ -96,7 +96,7 @@ cur_frm.cscript['Transfer Raw Materials'] = function() {
 }
 
 cur_frm.cscript['Update Finished Goods'] = function() {
-	cur_frm.cscript.make_se('Manufacture');
+	cur_frm.cscript.make_se('Manufacture/Repack');
 }
 
 cur_frm.fields_dict['production_item'].get_query = function(doc) {
@@ -123,5 +123,3 @@ cur_frm.set_query("bom_no", function(doc) {
 		}
 	} else msgprint(__("Please enter Production Item first"));
 });
-
-cur_frm.add_fetch('bom_no', 'total_fixed_cost', 'total_fixed_cost');

@@ -278,7 +278,7 @@
    "read_only": 0
   }, 
   {
-   "fieldname": "address", 
+   "fieldname": "address1", 
    "fieldtype": "Small Text", 
    "label": "Address", 
    "oldfieldname": "address", 
@@ -356,7 +356,7 @@
  ], 
  "icon": "icon-building", 
  "idx": 1, 
- "modified": "2014-08-07 05:20:47.711849", 
+ "modified": "2014-09-12 17:54:15.749696", 
  "modified_by": "Administrator", 
  "module": "Setup", 
  "name": "Company", 

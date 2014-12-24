@@ -46,12 +46,12 @@
    "no_copy": 0, 
    "oldfieldname": "purpose", 
    "oldfieldtype": "Select", 
-   "options": "Material Issue\nMaterial Receipt\nMaterial Transfer\nManufacture\nRepack\nSubcontract\nSales Return\nPurchase Return", 
+   "options": "Material Issue\nMaterial Receipt\nMaterial Transfer\nManufacture/Repack\nSubcontract\nSales Return\nPurchase Return", 
    "permlevel": 0, 
    "print_hide": 0, 
    "read_only": 0, 
    "report_hide": 0, 
-   "reqd": 1, 
+   "reqd": 0, 
    "search_index": 0
   }, 
   {
@@ -252,7 +252,7 @@
   }, 
   {
    "allow_on_submit": 0, 
-   "depends_on": "eval:inList([\"Material Transfer\", \"Manufacture\"], doc.purpose)", 
+   "depends_on": "eval:inList([\"Material Transfer\", \"Manufacture/Repack\"], doc.purpose)", 
    "fieldname": "production_order", 
    "fieldtype": "Link", 
    "hidden": 0, 
@@ -296,14 +296,6 @@
    "report_hide": 0, 
    "reqd": 0, 
    "search_index": 0
-  }, 
-  {
-   "depends_on": "eval:inList([\"Manufacture\", \"Repack\"], doc.purpose)", 
-   "fieldname": "total_fixed_cost", 
-   "fieldtype": "Float", 
-   "label": "Total Fixed Cost", 
-   "permlevel": 0, 
-   "read_only": 0
   }, 
   {
    "fieldname": "cb1", 
@@ -581,11 +573,11 @@
  "icon": "icon-file-text", 
  "idx": 1, 
  "in_create": 0, 
- "in_dialog": 0, 
+ "in_dialog": 1, 
  "is_submittable": 1, 
  "issingle": 0, 
  "max_attachments": 0, 
- "modified": "2014-09-16 15:56:37.514676", 
+ "modified": "2014-11-26 17:51:26.749303", 
  "modified_by": "Administrator", 
  "module": "Stock", 
  "name": "Stock Entry", 
@@ -603,6 +595,7 @@
    "read": 1, 
    "report": 1, 
    "role": "Material User", 
+   "set_user_permissions": 1, 
    "submit": 1, 
    "write": 1
   }, 
@@ -623,6 +616,7 @@
   }, 
   {
    "amend": 1, 
+   "apply_user_permissions": 1, 
    "cancel": 1, 
    "create": 1, 
    "delete": 1, 
@@ -637,6 +631,7 @@
   }, 
   {
    "amend": 1, 
+   "apply_user_permissions": 1, 
    "cancel": 1, 
    "create": 1, 
    "delete": 1, 
@@ -646,6 +641,18 @@
    "read": 1, 
    "report": 1, 
    "role": "Material Manager", 
+   "set_user_permissions": 1, 
+   "submit": 1, 
+   "write": 1
+  }, 
+  {
+   "amend": 1, 
+   "cancel": 1, 
+   "create": 1, 
+   "delete": 1, 
+   "permlevel": 0, 
+   "read": 1, 
+   "role": "Administrator", 
    "submit": 1, 
    "write": 1
   }
